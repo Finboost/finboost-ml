@@ -1,13 +1,14 @@
 # Install necessary packages
 # !pip install transformers datasets pandas
 
+
 import pandas as pd
 from datasets import Dataset
 # from transformers import XLMRobertaTokenizer, XLMRobertaForQuestionAnswering, RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments, default_data_collator
 from transformers import XLMRobertaTokenizerFast, XLMRobertaForQuestionAnswering, RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments, default_data_collator
 
 # Load the dataset
-df = pd.read_csv('./data/dataset.csv')
+df = pd.read_csv('./data/final_dataset.csv')
 dataset = Dataset.from_pandas(df)
 
 # Load the tokenizer and model for fine-tuning

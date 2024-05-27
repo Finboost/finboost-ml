@@ -37,16 +37,16 @@ Proyek ini menggunakan arsitektur berikut:
 
 ## File and Folder Structure
 
-| File/Folder Name                        | Description                                                                                                 |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `data/dataset.csv`                      | Dataset contoh dalam format CSV                                                                             |
-| `models/fine_tuned_model`               | Direktori untuk menyimpan model yang telah di-fine-tune                                                     |
-| `notebooks/finchat.ipynb`               | Notebook utama untuk fine-tuning dan penggunaan RAG                                                         |
-| `scripts/fine_tuning.py`                | Script untuk melakukan fine-tuning pada model deepset/roberta-base-squad2 (inggris only, tapi lebih akurat) |
-| `scripts/indo_fine_tuning.py`           | Script untuk melakukan fine-tuning pada model dengan model xlm-roberta-base (support bahasa indonesia)      |
-| `scripts/rag_integration.py`            | Script untuk mengintegrasikan RAG dengan model fine-tuned                                                   |
-| `scripts/context/financial_keywords.py` | Daftar kata kata yang berhubungan dengan finansial                                                          |
-| `requirements.txt`                      | Daftar dependencies untuk proyek ini                                                                        |
+| File/Folder Name                        | Description                                                                                                                                                       |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data/dataset.csv`                      | Dataset contoh dalam format CSV                                                                                                                                   |
+| `models/fine_tuned_model`               | Direktori untuk menyimpan model yang telah di-fine-tune                                                                                                           |
+| `notebooks/finchat.ipynb`               | Notebook utama untuk fine-tuning dan penggunaan RAG                                                                                                               |
+| `scripts/fine_tuning.py`                | Script untuk melakukan fine-tuning pada model deepset/roberta-base-squad2 (inggris only, tapi lebih akurat)                                                       |
+| `scripts/indo_fine_tuning.py`           | Script untuk melakukan fine-tuning pada model dengan model xlm-roberta-base (support bahasa indonesia) ref : # https://huggingface.co/FacebookAI/xlm-roberta-base |
+| `scripts/rag_integration.py`            | Script untuk mengintegrasikan RAG dengan model fine-tuned                                                                                                         |
+| `scripts/context/financial_keywords.py` | Daftar kata kata yang berhubungan dengan finansial                                                                                                                |
+| `requirements.txt`                      | Daftar dependencies untuk proyek ini                                                                                                                              |
 
 ## Setup
 

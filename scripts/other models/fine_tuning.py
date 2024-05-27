@@ -71,7 +71,7 @@ tokenized_datasets = dataset.map(preprocess_function, batched=True)
 
 # Define training arguments
 training_args = TrainingArguments(
-    output_dir="./models/fine_tuned_model",
+    output_dir="./models/roberta/fine_tuned_model",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
     per_device_train_batch_size=16,

@@ -13,7 +13,8 @@ reader = FARMReader(model_name_or_path=model_name, use_gpu=False)
 # Define document retrieval logic
 def retrieve_documents():
     # Load documents from your CSV file
-    df = pd.read_csv("data/rag_dataset.csv")
+    # df = pd.read_csv("data/rag_dataset.csv")
+    df = pd.read_csv("data/final_dataset.csv")
     documents = df.to_dict(orient="records")
     for doc in documents:
         doc['content'] = doc.pop('content')

@@ -17,5 +17,6 @@ FINANCIAL_KEYWORDS = [
     "spekulan", "asuransi kesehatan", "asuransi jiwa", "asuransi kendaraan", "asuransi properti",
     "asuransi perjalanan", "klaim asuransi", "uang tunai", "uang elektronik", "uang kertas",
     "uang logam", "uang digital", "uang kripto", "manajemen hutang", "manajemen piutang",
-    "manajemen likuiditas", "manajemen risiko pasar", "manajemen risiko kredit", "manajemen risiko operasional"
+    "manajemen likuiditas", "manajemen risiko pasar", "manajemen risiko kredit", "manajemen risiko operasional", "utang",
+    "hutang", "asuransi jiwa"
 ]
