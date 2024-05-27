@@ -15,9 +15,12 @@ def retrieve_documents():
     # Load documents from your CSV file
     # df = pd.read_csv("data/rag_dataset.csv")
     df = pd.read_csv("data/final_dataset.csv")
-    documents = df.to_dict(orient="records")
-    for doc in documents:
-        doc['content'] = doc.pop('content')
+    documents = []
+    for _, row in df.iterrows():
+        documents.append({
+            'content': row['context'],
+            'meta': {'question': row['question'], 'answer': row['answer']}
+        })
     return documents
 
 # Create document store and retriever
@@ -57,7 +60,8 @@ def answer_question(question):
     answer = prediction['answers'][0].answer if prediction['answers'] else "Tidak ada jawaban yang ditemukan"
     return answer
 
-question = "Siapa itu finboost?"
+# Testing the pipeline
+question = "bagaimana cara membuat uang?"
 answer = answer_question(question)
 print(f"Q: {question}\nA: {answer}")
 

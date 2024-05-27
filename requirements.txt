@@ -9,3 +9,5 @@ farm-haystack
 farm-haystack[inference]
 sentence-transformers
 accelerate
+scikit-learn
+transformers[torch]
