@@ -1,0 +1,11 @@
+transformers
+datasets
+torch
+faiss-cpu
+pandas
+sentencepiece
+haystack
+farm-haystack
+farm-haystack[inference]
+sentence-transformers
+accelerate

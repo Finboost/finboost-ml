@@ -1,0 +1,8 @@
+# Ignore fine-tuned model directory
+models/
+logs/
+
+# Other ignore rules...
+# For example, ignoring Python compiled files
+*.pyc
+__pycache__/
