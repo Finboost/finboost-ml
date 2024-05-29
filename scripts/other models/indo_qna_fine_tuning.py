@@ -1,21 +1,15 @@
-# Install necessary packages
-# !pip install transformers datasets pandas
-
-
 import pandas as pd
 from datasets import Dataset
-# from transformers import XLMRobertaTokenizer, XLMRobertaForQuestionAnswering, RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments, default_data_collator
-from transformers import XLMRobertaTokenizerFast, XLMRobertaForQuestionAnswering, RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments, default_data_collator
+from transformers import BertTokenizerFast, BertForQuestionAnswering, Trainer, TrainingArguments, default_data_collator
 
 # Load the dataset
-df = pd.read_csv('./data/final_dataset.csv')
+df = pd.read_csv('data/rag_dataset.csv')
 dataset = Dataset.from_pandas(df)
 
-# Load the tokenizer and model for fine-tuning
-model_name = "xlm-roberta-base"
-# tokenizer = XLMRobertaTokenizer.from_pretrained(model_name)
-tokenizer = XLMRobertaTokenizerFast.from_pretrained(model_name)
-model = XLMRobertaForQuestionAnswering.from_pretrained(model_name)
+# Load the tokenizer and model
+model_name = "Rifky/Indobert-QA"
+tokenizer = BertTokenizerFast.from_pretrained(model_name)
+model = BertForQuestionAnswering.from_pretrained(model_name)
 
 # Tokenize dataset
 def preprocess_function(examples):
@@ -70,7 +64,7 @@ tokenized_datasets = dataset.map(preprocess_function, batched=True)
 
 # Define training arguments
 training_args = TrainingArguments(
-    output_dir="models/others/fine_tuned_model",
+    output_dir="models/fine_tuned_model",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
     per_device_train_batch_size=16,
@@ -79,7 +73,9 @@ training_args = TrainingArguments(
     weight_decay=0.01,
     logging_dir='./logs',
     logging_steps=10,
-    max_steps=1000
+    max_steps=1000,
+    save_steps=500,
+    save_total_limit=2,
 )
 
 # Initialize Trainer
@@ -99,5 +95,5 @@ eval_results = trainer.evaluate()
 print(eval_results)
 
 # Save the model
-model.save_pretrained("./models/others/fine_tuned_model")
-tokenizer.save_pretrained("./models/others/fine_tuned_model")
+model.save_pretrained("./models/fine_tuned_model")
+tokenizer.save_pretrained("./models/fine_tuned_model")
