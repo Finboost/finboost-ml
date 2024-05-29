@@ -70,7 +70,7 @@ tokenized_datasets = dataset.map(preprocess_function, batched=True)
 
 # Define training arguments
 training_args = TrainingArguments(
-    output_dir="models/fine_tuned_model",
+    output_dir="models/others/fine_tuned_model",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
     per_device_train_batch_size=16,
@@ -99,5 +99,5 @@ eval_results = trainer.evaluate()
 print(eval_results)
 
 # Save the model
-model.save_pretrained("./models/fine_tuned_model")
-tokenizer.save_pretrained("./models/fine_tuned_model")
+model.save_pretrained("./models/others/fine_tuned_model")
+tokenizer.save_pretrained("./models/others/fine_tuned_model")

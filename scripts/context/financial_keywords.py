@@ -1,3 +1,5 @@
+# Wajib lower case
+
 FINANCIAL_KEYWORDS = [
     "finansial", "keuangan", "saham", "investasi", "asuransi",
     "pinjaman", "kredit", "pajak", "dana", "uang",
@@ -18,5 +20,5 @@ FINANCIAL_KEYWORDS = [
     "asuransi perjalanan", "klaim asuransi", "uang tunai", "uang elektronik", "uang kertas",
     "uang logam", "uang digital", "uang kripto", "manajemen hutang", "manajemen piutang",
     "manajemen likuiditas", "manajemen risiko pasar", "manajemen risiko kredit", "manajemen risiko operasional", "utang",
-    "hutang", "asuransi jiwa"
+    "hutang", "asuransi jiwa", "leverage", "roi" , "ebitda"
 ]

@@ -6,14 +6,13 @@ import pandas as pd
 from context.financial_keywords import FINANCIAL_KEYWORDS
 
 # Load the fine-tuned model and tokenizer
-model_name = "./models/fine_tuned_model"
+model_name = "./models/others/fine_tuned_model"
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(model_name)
-reader = FARMReader(model_name_or_path=model_name, use_gpu=False)
+reader = FARMReader(model_name_or_path=model_name, use_gpu=True)  # Use GPU if available
 
 # Define document retrieval logic
 def retrieve_documents():
     # Load documents from your CSV file
-    # df = pd.read_csv("data/rag_dataset.csv")
     df = pd.read_csv("data/final_dataset.csv")
     documents = []
     for _, row in df.iterrows():
@@ -23,19 +22,24 @@ def retrieve_documents():
         })
     return documents
 
+
 # Create document store and retriever
 document_store = InMemoryDocumentStore()
 retriever = DensePassageRetriever(
     document_store=document_store,
     query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
     passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
-    use_gpu=False,
+    use_gpu=True,  # Use GPU if available
     embed_title=True,
 )
 
 # Add documents to the document store
-document_store.write_documents(retrieve_documents())
-document_store.update_embeddings(retriever)
+documents = retrieve_documents()
+document_store.write_documents(documents)
+
+# Use batch processing for updating embeddings
+batch_size = 16  # Adjust the batch size based on your GPU memory
+document_store.update_embeddings(retriever, update_existing_embeddings=False, batch_size=batch_size)
 
 # Create a question answering pipeline using the fine-tuned model and retriever
 pipeline = ExtractiveQAPipeline(reader=reader, retriever=retriever)
@@ -65,6 +69,14 @@ question = "bagaimana cara membuat uang?"
 answer = answer_question(question)
 print(f"Q: {question}\nA: {answer}")
 
-question = "Apa itu investasi saham?"
+question = "Apa itu EBITDA?"
+answer = answer_question(question)
+print(f"Q: {question}\nA: {answer}")
+
+question = "Apa itu ROI?"
+answer = answer_question(question)
+print(f"Q: {question}\nA: {answer}")
+
+question = "Apa itu Leverage?"
 answer = answer_question(question)
 print(f"Q: {question}\nA: {answer}")
