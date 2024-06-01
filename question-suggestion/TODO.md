@@ -1,4 +1,5 @@
 - [ ] Tambah dataset
 - [ ] Preproccess duplikat data
-- [ ] Plot loss dan accuracy
+- [x] Plot loss dan accuracy
 - [ ] Tingkatin performa model (arsitektur, parameter, dll)
+- [ ] Ganti dataset pertanyaan pake pertanyaan yang ada di dataset buat fitur gen ai
