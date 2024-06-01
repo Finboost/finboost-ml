@@ -6,6 +6,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score
 import numpy as np
+import tf_keras
 
 import os
 
@@ -78,8 +79,8 @@ training_args = TrainingArguments(
     output_dir="./models/fine_tuned_model",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
-    per_device_train_batch_size=8,
-    per_device_eval_batch_size=8,
+    per_device_train_batch_size=4,  # Reduced batch size
+    per_device_eval_batch_size=4,  # Reduced batch size
     num_train_epochs=3,
     weight_decay=0.01,
     logging_dir='./logs',
@@ -91,13 +92,13 @@ data_collator = DefaultDataCollator(return_tensors="tf")
 
 tf_train_dataset = train_dataset.shuffle(seed=42).to_tf_dataset(
     columns=['input_ids', 'attention_mask', 'start_positions', 'end_positions'],
-    batch_size=8,
+    batch_size=4,  # Reduced batch size
     collate_fn=data_collator,
     shuffle=True,
 )
 tf_eval_dataset = eval_dataset.to_tf_dataset(
     columns=['input_ids', 'attention_mask', 'start_positions', 'end_positions'],
-    batch_size=8,
+    batch_size=4,  # Reduced batch size
     collate_fn=data_collator,
     shuffle=False,
 )
@@ -200,42 +201,32 @@ class MetricsLogger(tf.keras.callbacks.Callback):
         
 metrics_logger = MetricsLogger(tf_eval_dataset)
 
+class GradientAccumulation(tf.keras.callbacks.Callback):
+    def __init__(self, accum_steps=2):
+        super(GradientAccumulation, self).__init__()
+        self.accum_steps = accum_steps
+        self.step = 0
+        self.accumulated_grads = None
+
+    def on_train_batch_begin(self, batch, logs=None):
+        if self.step % self.accum_steps == 0:
+            self.accumulated_grads = [tf.zeros_like(var) for var in self.model.trainable_variables]
+
+    def on_train_batch_end(self, batch, logs=None):
+        grads = self.model.optimizer.get_gradients(self.model.total_loss, self.model.trainable_variables)
+        self.accumulated_grads = [accum_grad + grad / self.accum_steps for accum_grad, grad in zip(self.accumulated_grads, grads)]
+        if self.step % self.accum_steps == 0:
+            self.model.optimizer.apply_gradients(zip(self.accumulated_grads, self.model.trainable_variables))
+            self.model.optimizer.set_weights(self.accumulated_grads)
+        self.step += 1
+
+gradient_accumulation = GradientAccumulation(accum_steps=2)  # Adjust the accumulation steps as needed
+
+# Train the model with gradient accumulation
+history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger, gradient_accumulation], validation_data=tf_eval_dataset)
 # Train the model
-history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger], validation_data=tf_eval_dataset)
+# history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger], validation_data=tf_eval_dataset)
 
-logger.plot()
-metrics_logger.plot()
-
-# Buat dictionary kosong untuk menampung statistik pelatihan
-training_stats = {
-    'epoch': list(range(1, training_args.num_train_epochs + 1)),
-    'loss': history.history['loss'],  # Gunakan loss dari history
-    'val_loss': history.history['val_loss']  # Gunakan val_loss dari history
-}
-
-# Ambil metrik dari logger jika tersedia
-if logger.start_logits_accuracy and logger.end_logits_accuracy:
-    training_stats['start_logits_accuracy'] = logger.start_logits_accuracy
-    training_stats['end_logits_accuracy'] = logger.end_logits_accuracy
-
-# Ambil F1 score dari metrics logger jika tersedia
-if metrics_logger.epoch_f1:
-    training_stats['f1_score'] = metrics_logger.epoch_f1
-
-# Buat DataFrame dari dictionary
-df_stats = pd.DataFrame(training_stats)
-
-# Setel indeks DataFrame menjadi kolom 'epoch'
-df_stats = df_stats.set_index('epoch')
-
-# Setel opsi untuk menampilkan presisi desimal
-pd.set_option('display.precision', 2)
-
-# Hapus baris dengan nilai None
-df_stats = df_stats.dropna(axis=1, how='all')
-# pd.set_option('display.precision', 2)
-
-print(df_stats)
 
 def provide_recommendation():
     recommendation = ("Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk "
@@ -368,3 +359,5 @@ if context_found:
 else:
     answer = provide_recommendation_for_question(user_question)
     print(f"Q: {user_question}\nA: {answer}")
+    
+model.save('./models/my_model.h5')
