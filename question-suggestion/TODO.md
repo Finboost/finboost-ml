@@ -1,0 +1,4 @@
+- [ ] Tambah dataset
+- [ ] Preproccess duplikat data
+- [ ] Plot loss dan accuracy
+- [ ] Tingkatin performa model (arsitektur, parameter, dll)
