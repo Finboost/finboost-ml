@@ -3,19 +3,20 @@ from datasets import Dataset
 from transformers import TFBertForQuestionAnswering, BertTokenizerFast, DefaultDataCollator, create_optimizer
 from transformers import TrainingArguments, Trainer
 import tensorflow as tf
-import matplotlib.pyplot as plt
-from sklearn.metrics import f1_score
 import numpy as np
+from sklearn.metrics import f1_score
+import os
 import tf_keras
 
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+# Set environment variables and logging levels
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 tf.get_logger().setLevel('ERROR')
 
+# Load dataset
 df = pd.read_csv('./data/final_dataset.csv')
 dataset = Dataset.from_pandas(df)
 
+# Load tokenizer and model
 model_name = "Rifky/Indobert-QA"
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
@@ -79,9 +80,9 @@ training_args = TrainingArguments(
     output_dir="./models/fine_tuned_model",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
-    per_device_train_batch_size=4,  # Reduced batch size
-    per_device_eval_batch_size=4,  # Reduced batch size
-    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    num_train_epochs=1,
     weight_decay=0.01,
     logging_dir='./logs',
     logging_steps=10,
@@ -92,13 +93,13 @@ data_collator = DefaultDataCollator(return_tensors="tf")
 
 tf_train_dataset = train_dataset.shuffle(seed=42).to_tf_dataset(
     columns=['input_ids', 'attention_mask', 'start_positions', 'end_positions'],
-    batch_size=4,  # Reduced batch size
+    batch_size=4,
     collate_fn=data_collator,
     shuffle=True,
 )
 tf_eval_dataset = eval_dataset.to_tf_dataset(
     columns=['input_ids', 'attention_mask', 'start_positions', 'end_positions'],
-    batch_size=4,  # Reduced batch size
+    batch_size=4,
     collate_fn=data_collator,
     shuffle=False,
 )
@@ -123,40 +124,19 @@ class LossAccuracyLogger(tf.keras.callbacks.Callback):
     def __init__(self):
         super(LossAccuracyLogger, self).__init__()
         self.epoch_loss = []
+        self.val_loss = []
         self.start_logits_accuracy = []
         self.end_logits_accuracy = []
 
     def on_epoch_end(self, epoch, logs=None):
         self.epoch_loss.append(logs['loss'])
+        self.val_loss.append(logs['val_loss'])
         self.start_logits_accuracy.append(logs.get('start_logits_accuracy'))
         self.end_logits_accuracy.append(logs.get('end_logits_accuracy'))
-        print(f"Epoch {epoch + 1} - Loss: {logs['loss']}, Start Logits Accuracy: {logs.get('start_logits_accuracy')}, End Logits Accuracy: {logs.get('end_logits_accuracy')}")
-        print(f"Logged data so far: Loss: {self.epoch_loss}, Start Logits Accuracy: {self.start_logits_accuracy}, End Logits Accuracy: {self.end_logits_accuracy}")
+        print(f"Epoch {epoch + 1} - Loss: {logs['loss']}, Val Loss: {logs['val_loss']}, Start Logits Accuracy: {logs.get('start_logits_accuracy')}, End Logits Accuracy: {logs.get('end_logits_accuracy')}")
+        print(f"Logged data so far: Loss: {self.epoch_loss}, Val Loss: {self.val_loss}, Start Logits Accuracy: {self.start_logits_accuracy}, End Logits Accuracy: {self.end_logits_accuracy}")
 
-    def plot(self):
-        epochs = range(1, len(self.epoch_loss) + 1)
-        plt.figure(figsize=(18, 6))
-        
-        plt.subplot(1, 3, 1)
-        plt.plot(epochs, self.epoch_loss, label='Loss')
-        plt.xlabel('Epoch')
-        plt.ylabel('Loss')
-        plt.legend()
-        
-        plt.subplot(1, 3, 2)
-        plt.plot(epochs, self.start_logits_accuracy, label='Start Logits Accuracy')
-        plt.xlabel('Epoch')
-        plt.ylabel('Start Logits Accuracy')
-        plt.legend()
-        
-        plt.subplot(1, 3, 3)
-        plt.plot(epochs, self.end_logits_accuracy, label='End Logits Accuracy')
-        plt.xlabel('Epoch')
-        plt.ylabel('End Logits Accuracy')
-        plt.legend()
-        
-        plt.show()
-        
+
 logger = LossAccuracyLogger()
 
 class MetricsLogger(tf.keras.callbacks.Callback):
@@ -190,43 +170,10 @@ class MetricsLogger(tf.keras.callbacks.Callback):
         print(f"Epoch {epoch + 1} - F1 Score: {overall_f1}")
         print(f"Logged F1 data so far: {self.epoch_f1}")
 
-    def plot(self):
-        epochs = range(1, len(self.epoch_f1) + 1)
-        plt.figure(figsize=(12, 5))
-        plt.plot(epochs, self.epoch_f1, label='F1 Score')
-        plt.xlabel('Epoch')
-        plt.ylabel('F1 Score')
-        plt.legend()
-        plt.show()
-        
 metrics_logger = MetricsLogger(tf_eval_dataset)
 
-class GradientAccumulation(tf.keras.callbacks.Callback):
-    def __init__(self, accum_steps=2):
-        super(GradientAccumulation, self).__init__()
-        self.accum_steps = accum_steps
-        self.step = 0
-        self.accumulated_grads = None
-
-    def on_train_batch_begin(self, batch, logs=None):
-        if self.step % self.accum_steps == 0:
-            self.accumulated_grads = [tf.zeros_like(var) for var in self.model.trainable_variables]
-
-    def on_train_batch_end(self, batch, logs=None):
-        grads = self.model.optimizer.get_gradients(self.model.total_loss, self.model.trainable_variables)
-        self.accumulated_grads = [accum_grad + grad / self.accum_steps for accum_grad, grad in zip(self.accumulated_grads, grads)]
-        if self.step % self.accum_steps == 0:
-            self.model.optimizer.apply_gradients(zip(self.accumulated_grads, self.model.trainable_variables))
-            self.model.optimizer.set_weights(self.accumulated_grads)
-        self.step += 1
-
-gradient_accumulation = GradientAccumulation(accum_steps=2)  # Adjust the accumulation steps as needed
-
-# Train the model with gradient accumulation
-history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger, gradient_accumulation], validation_data=tf_eval_dataset)
 # Train the model
-# history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger], validation_data=tf_eval_dataset)
-
+history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger], validation_data=tf_eval_dataset)
 
 def provide_recommendation():
     recommendation = ("Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk "
@@ -312,7 +259,7 @@ def find_context_for_question(question, dataframe):
 
     return best_matched_context, context_found
 
-user_question = "apa itu cuaca"
+user_question = "apa itu finansial"
 
 context, context_found = find_context_for_question(user_question, df)
 
@@ -359,5 +306,9 @@ if context_found:
 else:
     answer = provide_recommendation_for_question(user_question)
     print(f"Q: {user_question}\nA: {answer}")
-    
-model.save('./models/my_model.h5')
+
+# Save the model in TensorFlow SavedModel format
+model.save('./models/my_model', save_format='tf')
+
+# Save the model weights only (optional)
+model.save_weights('./models/my_model_weights.h5')
