@@ -1,5 +1,5 @@
-- [ ] Tambah dataset
-- [ ] Preproccess duplikat data
+- [x] Tambah dataset
+- [x] Preproccess duplikat data
 - [x] Plot loss dan accuracy
+- [ ] Pindahin dataset question suggestion ke dataset finchat gen ai (jangan lupa lengkapi kolom yang tidak ada)
 - [ ] Tingkatin performa model (arsitektur, parameter, dll)
-- [ ] Ganti dataset pertanyaan pake pertanyaan yang ada di dataset buat fitur gen ai
