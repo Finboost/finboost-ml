@@ -3,7 +3,7 @@ from haystack.document_stores import InMemoryDocumentStore
 from haystack.nodes import DensePassageRetriever, FARMReader
 from haystack.pipelines import ExtractiveQAPipeline
 import pandas as pd
-from context.financial_keywords import FINANCIAL_KEYWORDS
+from financial_keywords import FINANCIAL_KEYWORDS
 
 # Load the fine-tuned model and tokenizer
 model_name = "./models/others/fine_tuned_model"
