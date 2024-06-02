@@ -1,0 +1,7 @@
+__pycache__
+.pytest_cache
+.venv
+.git
+.DS_Store
+.dockerignore
+Dockerfile
