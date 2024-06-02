@@ -16,7 +16,6 @@ tf.get_logger().setLevel('ERROR')
 df = pd.read_csv('./data/final_dataset.csv')
 dataset = Dataset.from_pandas(df)
 
-# Load tokenizer and model
 model_name = "Rifky/Indobert-QA"
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
@@ -136,7 +135,6 @@ class LossAccuracyLogger(tf.keras.callbacks.Callback):
         print(f"Epoch {epoch + 1} - Loss: {logs['loss']}, Val Loss: {logs['val_loss']}, Start Logits Accuracy: {logs.get('start_logits_accuracy')}, End Logits Accuracy: {logs.get('end_logits_accuracy')}")
         print(f"Logged data so far: Loss: {self.epoch_loss}, Val Loss: {self.val_loss}, Start Logits Accuracy: {self.start_logits_accuracy}, End Logits Accuracy: {self.end_logits_accuracy}")
 
-
 logger = LossAccuracyLogger()
 
 class MetricsLogger(tf.keras.callbacks.Callback):
@@ -174,6 +172,7 @@ metrics_logger = MetricsLogger(tf_eval_dataset)
 
 # Train the model
 history = model.fit(tf_train_dataset, epochs=training_args.num_train_epochs, callbacks=[logger, metrics_logger], validation_data=tf_eval_dataset)
+
 
 def provide_recommendation():
     recommendation = ("Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk "
@@ -260,6 +259,7 @@ def find_context_for_question(question, dataframe):
     return best_matched_context, context_found
 
 user_question = "apa itu finansial"
+
 
 context, context_found = find_context_for_question(user_question, df)
 
