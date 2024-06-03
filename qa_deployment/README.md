@@ -61,6 +61,12 @@ docker push asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/qa_deployment:l
 
 ### 3. Deploy to Google Cloud Run
 
+Set Project
+
+```sh
+gcloud config set project ents-h115
+```
+
 Deploy the container image to Cloud Run:
 
 ```sh

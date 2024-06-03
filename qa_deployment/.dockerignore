@@ -2,8 +2,8 @@
 __pycache__
 *.pyc
 
-# Ignore data files
-data/
+# # Ignore data files
+# data/
 
 # # Ignore model files
 # models/
