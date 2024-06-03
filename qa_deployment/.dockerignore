@@ -5,3 +5,6 @@ __pycache__
 .DS_Store
 .dockerignore
 Dockerfile
+*.pyc
+.gitignore
+.env

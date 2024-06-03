@@ -9,7 +9,7 @@ app = Flask(__name__)
 model_name = "Rifky/Indobert-QA"
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
-model.load_weights('./models/gen-ai/my_model_weights.h5')  # Load the model weights
+model.load_weights('./models/my_model_weights.h5')  # Load the model weights
 
 # Load the dataset
 df = pd.read_csv('./data/final_dataset.csv')
