@@ -1,5 +1,5 @@
-# Use the official TensorFlow Serving image as a parent image
-FROM tensorflow/tensorflow:2.4.1
+# Use the official Python image as a parent image
+FROM python:3.10-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,14 +7,20 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 8080 for the Flask app
 EXPOSE 8080
 
-# Define environment variable
-ENV FLASK_APP=app.py
+# Define environment variable for Flask app
+ENV FLASK_APP=app/main.py
 
-# Run app.py when the container launches
-CMD ["python", "app/main.py"]
+# Install Gunicorn
+RUN pip install gunicorn
+
+# Run Gunicorn server when the container launches
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:app"]

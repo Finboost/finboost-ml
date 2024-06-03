@@ -1,10 +1,17 @@
+# Ignore Python cache files
 __pycache__
-.pytest_cache
-.venv
+*.pyc
+
+# Ignore data files
+data/
+
+# # Ignore model files
+# models/
+
+# Ignore any other files you don't need in the Docker image
 .git
 .DS_Store
-.dockerignore
-Dockerfile
-*.pyc
-.gitignore
+.venv
 .env
+.pytest_cache
+.gitignore
