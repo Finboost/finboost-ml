@@ -1,0 +1,11 @@
+datasets==2.19.1
+django_haystack==3.2.1
+Flask==3.0.3
+numpy==1.26.4
+pandas==2.2.2
+Requests==2.32.3
+scikit_learn==1.5.0
+tensorflow==2.16.1
+tensorflow_intel==2.16.1
+tf_keras==2.16.0
+transformers==4.39.3
