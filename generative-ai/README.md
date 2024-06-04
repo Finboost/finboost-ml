@@ -12,20 +12,20 @@ This document provides step-by-step instructions for deploying the QA deployment
 
 ### 1. Build the Docker Image
 
-Navigate to the `qa_deployment` directory:
+Navigate to the `generative-ai` directory:
 
 ```sh
-cd finboost-ml/qa_deployment
+cd finboost-ml/generative-ai
 ```
 
 Build the Docker image:
 
 <!-- ```sh
-docker build -t gcr.io/[PROJECT-ID]/qa_deployment .
+docker build -t gcr.io/[PROJECT-ID]/generative-ai .
 ``` -->
 
 ```sh
-docker build -t qa_deployment .
+docker build -t generative-ai .
 ```
 
 ### 2. Push the Docker Image to Google Container Registry
@@ -46,17 +46,17 @@ gcloud artifacts repositories create REPOSITORY-ID --repository-format=docker --
 Tag the image with a registry name
 
 ```sh
-docker tag qa_deployment:latest asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/qa_deployment:latest
+docker tag generative-ai:latest asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest
 ```
 
 Push the Docker image:
 
 <!-- ```sh
-docker push gcr.io/[PROJECT-ID]/qa_deployment
+docker push gcr.io/[PROJECT-ID]/generative-ai
 ``` -->
 
 ```sh
-docker push asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/qa_deployment:latest
+docker push asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest
 ```
 
 ### 3. Deploy to Google Cloud Run
@@ -70,7 +70,7 @@ gcloud config set project ents-h115
 Deploy the container image to Cloud Run:
 
 ```sh
-gcloud run deploy qa-deployment --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/qa_deployment:latest --platform managed --region asia-southeast2 --allow-unauthenticated
+gcloud run deploy qa-deployment --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest --platform managed --region asia-southeast2 --allow-unauthenticated
 
 ```
 
