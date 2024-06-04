@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import tensorflow as tf
 from transformers import BertTokenizerFast, TFBertForQuestionAnswering
+import requests
 
 app = Flask(__name__)
 
@@ -9,7 +10,21 @@ app = Flask(__name__)
 model_name = "Rifky/Indobert-QA"
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
-model.load_weights('./models/my_model_weights.h5')  # Load the model weights
+# model.load_weights('https://storage.googleapis.com/finboost-generative-ai-model/my_model_weights.h5')  # Load the model weights
+
+# URL of the model weights
+weights_url = 'https://storage.googleapis.com/finboost-generative-ai-model/my_model_weights.h5'
+
+# Download the model weights
+local_weights_file = 'my_model_weights.h5'
+response = requests.get(weights_url)
+
+with open(local_weights_file, 'wb') as f:
+    f.write(response.content)
+
+# Load the model weights
+model.load_weights(local_weights_file)
+
 
 # Load the dataset
 df = pd.read_csv('./data/final_dataset.csv')
