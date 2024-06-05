@@ -1,0 +1,5 @@
+Flask==3.0.3
+numpy==1.26.4
+Requests==2.32.3
+tensorflow==2.16.1
+tensorflow_intel==2.16.1

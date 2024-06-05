@@ -6,7 +6,7 @@ __pycache__
 # data/
 
 # Ignore model files
-models/
+# models/
 
 # Ignore any other files you don't need in the Docker image
 .git

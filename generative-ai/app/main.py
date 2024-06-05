@@ -10,20 +10,20 @@ app = Flask(__name__)
 model_name = "Rifky/Indobert-QA"
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
-# model.load_weights('./models/gen-ai/my_model_weights.h5')    # Load the model weights
+model.load_weights('./models/gen-ai/model_weights_gen_ai.h5')    # Load the model weights
 
 # URL of the model weights
-weights_url = 'https://storage.googleapis.com/finboost-generative-ai-model/my_model_weights.h5'
+# weights_url = 'https://storage.googleapis.com/finboost-generative-ai-model/my_model_weights.h5'
 
-# Download the model weights
-local_weights_file = 'my_model_weights.h5'
-response = requests.get(weights_url)
+# # Download the model weights
+# local_weights_file = 'my_model_weights.h5'
+# response = requests.get(weights_url)
 
-with open(local_weights_file, 'wb') as f:
-    f.write(response.content)
+# with open(local_weights_file, 'wb') as f:
+#     f.write(response.content)
 
-# Load the model weights
-model.load_weights(local_weights_file)
+# # Load the model weights
+# model.load_weights(local_weights_file)
 
 
 # Load the dataset

@@ -1,20 +1,26 @@
-# Use the official lightweight Python image
-FROM python:3.9-slim
+# Use the official Python image as a parent image
+FROM python:3.10-slim
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Install the requirements
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
-COPY . .
+# Expose port 8080 for the Flask app
+EXPOSE 8081
 
-# Expose the port the app runs on
-EXPOSE 8080
+# Define environment variable for Flask app
+ENV FLASK_APP=app/main.py
 
-# Run the application
-CMD ["sh", "run.sh"]
+# Install Gunicorn
+RUN pip install gunicorn
+
+# Run Gunicorn server when the container launches
+CMD ["gunicorn", "--bind", "0.0.0.0:8081", "app.main:app"]

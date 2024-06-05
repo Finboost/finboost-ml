@@ -308,7 +308,7 @@ else:
     print(f"Q: {user_question}\nA: {answer}")
 
 # Save the model in TensorFlow SavedModel format
-model.save('./models/gen-ai/my_model', save_format='tf')
+model.save('./models/gen-ai/model_gen_ai', save_format='tf')
 
 # Save the model weights only (optional)
-model.save_weights('./models/gen-ai/my_model_weights.h5')
+model.save_weights('./models/gen-ai/model_weights_gen_ai.h5')
