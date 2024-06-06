@@ -1,6 +1,6 @@
-# QA Deployment
+# Deployment
 
-This document provides step-by-step instructions for deploying the QA deployment Docker container to Google Cloud.
+This document provides step-by-step instructions for deploying the Generative AI deployment Docker container to Google Cloud.
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ gcloud config set project ents-h115
 Deploy the container image to Cloud Run:
 
 ```sh
-gcloud run deploy qa-deployment --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest --platform managed --region asia-southeast2 --allow-unauthenticated
+gcloud run deploy finboost-ml --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest --platform managed --region asia-southeast2 --allow-unauthenticated
 
 ```
 

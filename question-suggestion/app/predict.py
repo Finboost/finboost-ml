@@ -1,20 +1,30 @@
 import requests
 
-# URL of the Flask application (use HTTP)
-url = "http://127.0.0.1:8081/predict"
-
-# Sample question and context
-data = {
-    "user_input": "Bagaimana cara memilih obligasi yang baik"
-}
-
-try:
-    # Send POST request to the Flask app
-    response = requests.post(url, json=data)
+def get_suggestions(user_input, total_questions=4):
+    url = 'http://localhost:8080/suggest'  # Ganti dengan URL aplikasi yang dideploy jika perlu
+    headers = {'Content-Type': 'application/json'}
+    data = {
+        'user_input': user_input,
+        'total_questions': total_questions
+    }
     
-    # Print the response from the server
-    print("Response from server:")
-    response.raise_for_status()  # Raise an error for bad status codes
-    print(response.json())
-except requests.exceptions.RequestException as e:
-    print(f"Error: {e}")
+    response = requests.post(url, json=data, headers=headers)
+    
+    if response.status_code == 200:
+        result = response.json()
+        return result
+    else:
+        print(f"Error: {response.status_code}")
+        return None
+
+if __name__ == '__main__':
+    user_input = "Bagaimana cara mengenali proyek cryptocurrency yang menjanjikan?"  # Contoh input pengguna
+    suggestions = get_suggestions(user_input)
+
+    if suggestions:
+        print("\nTop categories with their probabilities:")
+        print(f"{suggestions['top_category']}: {suggestions['probability']:.4f}")
+        
+        print("\nSuggested questions:")
+        for question in suggestions['suggested_questions']:
+            print(question)

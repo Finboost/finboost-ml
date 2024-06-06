@@ -1,5 +1,7 @@
-Flask==3.0.3
-numpy==1.26.4
-Requests==2.32.3
-tensorflow==2.16.1
-tensorflow_intel==2.16.1
+Flask==2.1.2
+tensorflow==2.9.1
+pandas==1.4.2
+numpy==1.22.4
+scikit-learn==1.1.1
+transformers==4.18.0
+gunicorn==20.1.0

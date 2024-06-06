@@ -1,11 +1,8 @@
-from flask import Flask, request, jsonify
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
-
-app = Flask(__name__)
 
 # Load data
 df = pd.read_csv('./data/question-suggestion/data.csv')
@@ -45,29 +42,11 @@ def suggest_questions(user_input, total_questions=4):
     num_suggestions = min(total_questions, len(suggested_questions))
     
     # Select random questions from the suggested list, ensuring they belong to the top category
-    suggested_questions = np.random.choice(suggested_questions, num_suggestions, replace=False).tolist()  # Konversi ke list
-    
-    return suggested_questions, top_category, top_probability
+    return np.random.choice(suggested_questions, num_suggestions, replace=False)
 
-
-@app.route('/suggest', methods=['POST'])
-def suggest():
-    data = request.json
-    user_input = data.get('user_input', '')
-    total_questions = data.get('total_questions', 4)
-    
-    if not user_input:
-        return jsonify({"error": "User input is required"}), 400
-    
-    suggested_questions, top_category, top_probability = suggest_questions(user_input, total_questions)
-    
-    response = {
-        "top_category": top_category,
-        "probability": float(top_probability),  # Konversi numpy float32 ke float bawaan
-        "suggested_questions": suggested_questions  # Tidak perlu konversi ke list dan panggilan tolist()
-    }
-    
-    return jsonify(response)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+# Example usage
+user_input = "Apa itu PPh 21 dan bagaimana cara menghitungnya?"
+suggested_questions = suggest_questions(user_input)
+print("\nSuggested questions:")
+for question in suggested_questions:
+    print(question)

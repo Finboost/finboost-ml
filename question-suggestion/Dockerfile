@@ -14,7 +14,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 8080 for the Flask app
-EXPOSE 8081
+EXPOSE 8080
 
 # Define environment variable for Flask app
 ENV FLASK_APP=app/main.py
@@ -23,4 +23,4 @@ ENV FLASK_APP=app/main.py
 RUN pip install gunicorn
 
 # Run Gunicorn server when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:8081", "app.main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:app"]
