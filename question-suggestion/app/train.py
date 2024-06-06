@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 
 # Load data
-df = pd.read_csv('./data/question-suggestion/data.csv')
+df = pd.read_csv('./data/data.csv')
 df.drop_duplicates(inplace=True)
 df.dropna(inplace=True)
 
