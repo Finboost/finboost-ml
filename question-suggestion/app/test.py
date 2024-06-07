@@ -5,7 +5,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 
 # Load data
-df = pd.read_csv('./data/question-suggestion/data.csv')
+df = pd.read_csv('./data/data.csv')
 questions = df['Question'].tolist()
 labels = df['Category'].tolist()
 

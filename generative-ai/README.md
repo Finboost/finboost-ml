@@ -69,8 +69,13 @@ gcloud config set project ents-h115
 
 Deploy the container image to Cloud Run:
 
-```sh
+<!-- ```sh
 gcloud run deploy finboost-ml --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest --platform managed --region asia-southeast2 --allow-unauthenticated
+
+``` -->
+
+```sh
+gcloud run deploy generative-ai --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai:latest --platform managed --region asia-southeast2 --allow-unauthenticated
 
 ```
 
