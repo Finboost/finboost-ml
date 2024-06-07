@@ -8,7 +8,7 @@ import pickle
 app = Flask(__name__)
 
 # Load data
-df = pd.read_csv('./data/question-suggestion/data.csv')
+df = pd.read_csv('./data/data.csv')
 questions = df['Question'].tolist()
 labels = df['Category'].tolist()
 
