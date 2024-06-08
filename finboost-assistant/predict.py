@@ -18,7 +18,7 @@ def test_prompt(prompt):
         print("Response (from cache):", cached_response)
         return
     
-    url = "http://localhost:5000/generate"
+    url = "https://YOUR_CLOUD_RUN_URL"
     payload = {"prompt": prompt}
     headers = {"Content-Type": "application/json"}
     

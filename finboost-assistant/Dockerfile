@@ -1,18 +1,23 @@
-# Use the official lightweight Python image.
-# https://hub.docker.com/_/python
+# Use the official Python image from the Docker Hub
 FROM python:3.9-slim
 
-# Allow statements and log messages to immediately appear in the logs.
-ENV PYTHONUNBUFFERED True
-
-# Set the working directory.
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app.
-COPY . /app
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt.
+# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the application.
-CMD ["sh", "run.sh"]
+# Copy the current directory contents into the container
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Define environment variable
+ENV FLASK_APP=app
+
+# Run the application
+CMD ["gunicorn", "-c", "gunicorn_config.py", "app:create_app"]
