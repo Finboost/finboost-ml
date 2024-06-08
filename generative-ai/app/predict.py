@@ -5,7 +5,7 @@ url = "http://127.0.0.1:8080/predict"
 
 # Sample question and context
 data = {
-    "question": "bagaimana cara mengelola keuangan untuk generasi"
+    "question": "apa itu finansial"
 }
 
 # Send POST request to the Flask app

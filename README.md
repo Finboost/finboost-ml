@@ -15,7 +15,7 @@
 
 ## Introduction
 
-Finboost Machine Learning adalah proyek chatbot finansial yang dapat menjawab pertanyaan terkait topik finansial dalam bahasa Indonesia. Proyek ini menggunakan model deep learning dengan fine-tuning pada model `deepset/roberta-base-squad2` dan integrasi dengan RAG (Retrieval-Augmented Generation) untuk menghasilkan jawaban yang lebih akurat dan relevan.
+Finboost Machine Learning adalah proyek chatbot finansial yang dapat menjawab pertanyaan terkait topik finansial dalam bahasa Indonesia. Proyek ini menggunakan model deep learning dengan fine-tuning pada model `Rifky/Indobert-QA` dan integrasi dengan RAG (Retrieval-Augmented Generation) untuk menghasilkan jawaban yang lebih akurat dan relevan.
 
 ## Tech Stack
 
@@ -31,22 +31,22 @@ Finboost Machine Learning adalah proyek chatbot finansial yang dapat menjawab pe
 Proyek ini menggunakan arsitektur berikut:
 
 - **Data Preparation**: Data pertanyaan dan jawaban disiapkan dalam format CSV.
-- **Model Fine-Tuning**: Model `deepset/roberta-base-squad2` di-fine-tune menggunakan dataset.
+- **Model Fine-Tuning**: Model `Rifky/Indobert-QA` di-fine-tune menggunakan dataset.
 - **RAG (Retrieval-Augmented Generation)**: Digunakan untuk memperkaya jawaban dengan informasi tambahan.
 - **Integration**: Hasil dari model fine-tuned dan RAG digabungkan untuk memberikan jawaban akhir.
 
 ## File and Folder Structure
 
-| File/Folder Name                        | Description                                                                                                                                                       |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data/dataset.csv`                      | Dataset contoh dalam format CSV                                                                                                                                   |
-| `models/fine_tuned_model`               | Direktori untuk menyimpan model yang telah di-fine-tune                                                                                                           |
-| `notebooks/finchat.ipynb`               | Notebook utama untuk fine-tuning dan penggunaan RAG                                                                                                               |
-| `scripts/fine_tuning.py`                | Script untuk melakukan fine-tuning pada model deepset/roberta-base-squad2 (inggris only, tapi lebih akurat)                                                       |
-| `scripts/indo_fine_tuning.py`           | Script untuk melakukan fine-tuning pada model dengan model xlm-roberta-base (support bahasa indonesia) ref : # https://huggingface.co/FacebookAI/xlm-roberta-base |
-| `scripts/rag_integration.py`            | Script untuk mengintegrasikan RAG dengan model fine-tuned                                                                                                         |
-| `scripts/context/financial_keywords.py` | Daftar kata kata yang berhubungan dengan finansial                                                                                                                |
-| `requirements.txt`                      | Daftar dependencies untuk proyek ini                                                                                                                              |
+| File/Folder Name                        | Description                                                                                                                                             |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data/dataset.csv`                      | Dataset contoh dalam format CSV                                                                                                                         |
+| `models/fine_tuned_model`               | Direktori untuk menyimpan model yang telah di-fine-tune                                                                                                 |
+| `notebooks/finchat.ipynb`               | Notebook utama untuk fine-tuning dan penggunaan RAG                                                                                                     |
+| `scripts/fine_tuning.py`                | Script untuk melakukan fine-tuning pada model Rifky/Indobert-QA (inggris only, tapi lebih akurat)                                                       |
+| `scripts/indo_fine_tuning.py`           | Script untuk melakukan fine-tuning pada model dengan model xlm-roberta-base (support bahasa indonesia) ref : # https://huggingface.co/Rifky/Indobert-QA |
+| `scripts/rag_integration.py`            | Script untuk mengintegrasikan RAG dengan model fine-tuned                                                                                               |
+| `scripts/context/financial_keywords.py` | Daftar kata kata yang berhubungan dengan finansial                                                                                                      |
+| `requirements.txt`                      | Daftar dependencies untuk proyek ini                                                                                                                    |
 
 ## Setup
 

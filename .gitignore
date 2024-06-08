@@ -6,5 +6,5 @@ logs/
 # For example, ignoring Python compiled files
 *.pyc
 __pycache__/
-.venv
-
+.venv/
+.DS_Store
