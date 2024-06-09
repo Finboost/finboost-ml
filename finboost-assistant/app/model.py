@@ -14,11 +14,13 @@ except Exception as e:
     logging.error("Error loading model: %s", e)
     raise e
 
+financial_keywords = ["uang", "keuangan", "finansial", "investasi", "tabungan", "hutang", "bank", "asuransi", "pajak", "kredit", "anggaran"]
+
 def generate_response(user_input):
     system_message = {"role": "system", "content": "Kamu adalah asisten dari Finboost yang membantu seputar masalah keuangan."}
     user_message = {"role": "user", "content": user_input}
     
-    if not user_input.lower().strip().startswith(("uang", "keuangan", "finansial", "investasi", "tabungan", "hutang")):
+    if not any(keyword in user_input.lower() for keyword in financial_keywords):
         return "Saya hanya bisa membantu pertanyaan seputar masalah keuangan."
     
     messages = [system_message, user_message]
