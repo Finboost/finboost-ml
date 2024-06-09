@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from model import generate_response
+from .model import generate_response
 
 bp = Blueprint('main', __name__)
 
