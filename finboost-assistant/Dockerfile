@@ -16,8 +16,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8080
 
-# Define environment variable
-ENV FLASK_APP=app
-
 # Run the application
-CMD ["gunicorn", "-c", "gunicorn_config.py", "app:create_app"]
+CMD ["./run.sh"]
