@@ -65,14 +65,16 @@ FINANCIAL_KEYWORDS = [
     "optimasi pajak", "konsolidasi utang", "refinancing", "saham preferen", "keuangan publik",
     "rasio utang terhadap ekuitas", "rasio lancar", "penilaian aset", "pencucian uang", "transfer dana",
     "arbitase mata uang", "analisis pasar", "kesehatan keuangan", "kinerja keuangan", "penerimaan kas", "gaji",
-    "duit", "ngutang", "ngasih pinjem", "bayar utang", "gaji", "credit",
+    "duit", "ngutang", "ngasih pinjem", "bayar utang", "gaji", "credit", "cfa", "cfp",
     "duit bulanan", "bayaran", "tip", "bon", "beli barang", "kpr", "cicil",
     "cicilan", "tagihan", "pengeluaran harian", "dompet", "rekening bank",
     "transfer", "tarik tunai", "setor tunai", "atm", "bunga pinjaman", "pajak",
-    "tabung", "jajan", "belanja", "pinjem duit", "kartu kredit", "lunas",
-    "kartu debit", "asuransi mobil", "asuransi rumah", "asuransi kesehatan",
-    "dana darurat", "penghasilan", "pemasukan", "pengeluaran", "pendapatan tambahan",
+    "tabung", "jajan", "belanja", "pinjem duit", "kartu kredit", "lunas", "terima",
+    "kartu debit", "asuransi mobil", "asuransi rumah", "asuransi kesehatan", "makasih",
+    "dana darurat", "penghasilan", "pemasukan", "pengeluaran", "pendapatan tambahan", 
     "uang lembur", "uang saku", "budget harian", "saldo", "hutang kartu kredit",
     "angsuran kredit", "hutang rumah", "hutang mobil", "gaji pokok", "uang makan",
-    "bonus", "insentif", "kas kecil", "uang pensiun", "biaya hidup", "obligasi", "emas", "cryptocurrency"
+    "bonus", "insentif", "kas kecil", "uang pensiun", "biaya hidup", "obligasi", "emas", "cryptocurrency", 
+    "thanks","hallo", "terimakasih", "sorry", "maaf", "hi", "tes", "test", "p", "makasih", "kamu", 
+    "mengatasinya", "memperbaikinya", "mengelolanya", "mengelola", "memberi"
 ]
