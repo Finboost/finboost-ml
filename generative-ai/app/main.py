@@ -12,19 +12,6 @@ tokenizer = BertTokenizerFast.from_pretrained(model_name)
 model = TFBertForQuestionAnswering.from_pretrained(model_name)
 model.load_weights('./models/gen-ai/model_weights_gen_ai.h5')
 
-# URL of the model weights
-# weights_url = 'https://storage.googleapis.com/finboost-generative-ai-model/my_model_weights.h5'
-
-# # Download the model weights
-# local_weights_file = 'my_model_weights.h5'
-# response = requests.get(weights_url)
-
-# with open(local_weights_file, 'wb') as f:
-#     f.write(response.content)
-
-# # Load the model weights
-# model.load_weights(local_weights_file)
-
 # Load the dataset
 df = pd.read_csv('./data/generative-ai/final_dataset.csv')
 
@@ -146,7 +133,7 @@ def predict():
                     "jangan ragu untuk bertanya. Saya siap membantu Anda dalam segala hal terkait keuangan Anda.\n\n"
                     
                     "Jika Anda memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, Anda dapat menggunakan fitur "
-                    "konsultasi dengan pakar keuangan kami [di sini](#https://finboost-waitlist.vercel.app/).")
+                    "konsultasi dengan pakar keuangan kami, silahkan cek list expert di menu kami")
         })
 
     best_context, context_found = find_context_for_question(question, df)

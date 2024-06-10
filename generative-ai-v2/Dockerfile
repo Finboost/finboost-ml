@@ -13,6 +13,9 @@ RUN pip install --upgrade pip
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Ensure saved_model is copied into the image under /app/saved_model
+COPY saved_model /app/saved_model
+
 # Expose port 8080 for the Flask app
 EXPOSE 8080
 

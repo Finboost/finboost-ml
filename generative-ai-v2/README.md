@@ -28,6 +28,12 @@ docker build -t gcr.io/[PROJECT-ID]/generative-ai-v2 .
 docker build -t generative-ai-v2 .
 ```
 
+Run the Docker container locally to test (optional)
+
+```sh
+docker run -p 8080:8080 generative-ai-v2
+```
+
 ### 2. Push the Docker Image to Google Container Registry
 
 Authenticate with Google Cloud:
@@ -47,12 +53,6 @@ Tag the image with a registry name
 
 ```sh
 docker tag generative-ai-v2:latest asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai-v2:latest
-```
-
-Run the Docker container locally to test (optional)
-
-```sh
-docker run -p 8080:8080 generative-ai-v2
 ```
 
 Push the Docker image:

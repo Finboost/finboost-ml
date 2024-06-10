@@ -3,11 +3,13 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import re
 from . import financial_keywords  # Assuming financial_keywords.py contains a list of keywords
+import os
 
 app = Flask(__name__)
 
-# model_path = "saved_model"
-model_path = "Bahasalab/Bahasa-4b-chat"
+model_path = "./saved_model"
+model_path = os.path.abspath(model_path)
+# model_path = "Bahasalab/Bahasa-4b-chat"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
