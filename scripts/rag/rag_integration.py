@@ -13,7 +13,7 @@ reader = FARMReader(model_name_or_path=model_name, use_gpu=True)  # Use GPU if a
 # Define document retrieval logic
 def retrieve_documents():
     # Load documents from your CSV file
-    df = pd.read_csv("data/final_dataset.csv")
+    df = pd.read_csv("data/generative-ai/finansial-dataset.csv")
     documents = []
     for _, row in df.iterrows():
         documents.append({

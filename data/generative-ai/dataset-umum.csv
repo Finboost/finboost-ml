@@ -1,0 +1,50 @@
+id,context,question,answer,answer_start
+1,"Halo! Saya di sini untuk membantu Anda dengan pertanyaan seputar finansial. Silakan tanyakan apa saja yang ingin Anda ketahui tentang keuangan, investasi, atau pengelolaan uang.","Hallo","Halo! Bagaimana kabar Anda? Silakan tanyakan apa saja yang ingin Anda ketahui tentang finansial.",0
+2,"Selamat pagi! Jika Anda memiliki pertanyaan tentang keuangan atau butuh saran mengenai pengelolaan uang, saya siap membantu. Jangan ragu untuk bertanya!","Selamat pagi","Selamat pagi! Apa kabar? Silakan ajukan pertanyaan Anda tentang finansial, saya siap membantu.",0
+3,"Terima kasih sudah menghubungi kami! Jika Anda memiliki pertanyaan seputar finansial, jangan sungkan untuk bertanya. Saya di sini untuk membantu Anda.","Terima kasih","Sama-sama! Jika ada yang ingin ditanyakan tentang keuangan, jangan ragu untuk bertanya.",0
+4,"Hai! Saya siap membantu Anda dengan berbagai informasi mengenai keuangan dan investasi. Silakan ajukan pertanyaan Anda kapan saja.","Hai","Hai! Bagaimana kabar Anda? Silakan tanyakan apa saja yang ingin Anda ketahui tentang finansial.",0
+5,"Selamat siang! Apakah ada hal yang ingin Anda tanyakan tentang keuangan? Saya siap membantu dengan segala informasi yang Anda butuhkan.","Selamat siang","Selamat siang! Ada yang bisa saya bantu mengenai finansial? Silakan ajukan pertanyaan Anda.",0
+6,"Selamat sore! Jika Anda memiliki pertanyaan mengenai investasi atau pengelolaan uang, saya di sini untuk membantu Anda.","Selamat sore","Selamat sore! Ada yang ingin Anda tanyakan tentang finansial? Saya siap membantu.",0
+7,"Halo! Jangan ragu untuk bertanya mengenai segala hal tentang keuangan, saya di sini untuk membantu Anda.","Halo","Halo! Bagaimana kabar? Silakan tanyakan apa saja tentang finansial, saya siap membantu.",0
+8,"Selamat malam! Apakah ada pertanyaan tentang keuangan yang ingin Anda ajukan? Saya siap membantu dengan informasi yang Anda butuhkan.","Selamat malam","Selamat malam! Ada yang bisa saya bantu mengenai finansial? Silakan ajukan pertanyaan Anda.",0
+9,"Hai! Saya di sini untuk membantu Anda dengan pertanyaan mengenai keuangan dan investasi. Silakan bertanya kapan saja.","Hai","Hai! Ada yang bisa saya bantu tentang finansial? Silakan ajukan pertanyaan Anda.",0
+10,"Halo! Apakah Anda memiliki pertanyaan seputar keuangan atau butuh saran mengenai investasi? Saya siap membantu.","Halo","Halo! Bagaimana kabar Anda? Silakan tanyakan apa saja yang ingin Anda ketahui tentang finansial.",0
+11,"Hai! Aku di sini buat bantu kamu dengan pertanyaan seputar finansial. Silakan tanya apa saja yang ingin kamu ketahui tentang keuangan, investasi, atau pengelolaan uang.","Halo","Hai! Apa kabar? Silakan tanya apa saja yang kamu ingin tahu tentang finansial.",0
+12,"Selamat pagi! Kalau kamu punya pertanyaan tentang keuangan atau butuh saran tentang pengelolaan uang, aku siap membantu. Jangan ragu buat tanya!","Selamat pagi","Pagi! Apa kabar? Silakan tanya apa saja yang ingin kamu ketahui tentang finansial.",0
+13,"Makasih sudah menghubungi kami! Kalau kamu punya pertanyaan seputar finansial, jangan sungkan buat tanya. Aku di sini buat bantu kamu.","Makasih","Sama-sama! Kalau ada yang mau ditanya tentang keuangan, jangan ragu buat tanya ya.",0
+14,"Hai! Aku siap bantu kamu dengan berbagai informasi tentang keuangan dan investasi. Silakan tanya kapan aja.","Hai","Hai! Apa kabar? Silakan tanya apa aja yang kamu ingin tahu tentang finansial.",0
+15,"Selamat siang! Ada hal yang mau kamu tanyakan tentang keuangan? Aku siap bantu dengan segala informasi yang kamu butuhkan.","Selamat siang","Siang! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+16,"Selamat sore! Kalau kamu punya pertanyaan tentang investasi atau pengelolaan uang, aku di sini buat bantu kamu.","Selamat sore","Sore! Ada yang ingin kamu tanyakan tentang finansial? Aku siap bantu.",0
+17,"Hi! Jangan ragu buat tanya tentang segala hal tentang keuangan, aku di sini buat bantu kamu.","Hi","Hi! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+18,"Selamat malam! Ada pertanyaan tentang keuangan yang ingin kamu ajukan? Aku siap bantu dengan informasi yang kamu butuhkan.","Selamat malam","Malam! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+19,"Hai! Aku di sini buat bantu kamu dengan pertanyaan tentang keuangan dan investasi. Silakan tanya kapan aja.","Hai","Hai! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+20,"Halo! Ada pertanyaan seputar keuangan atau butuh saran tentang investasi? Aku siap bantu.","Halo","Halo! Apa kabar? Silakan tanya apa aja yang kamu ingin tahu tentang finansial.",0
+21,"Hai! Kalau ada pertanyaan tentang finansial atau butuh info tentang investasi, tanya aja ya.","Hai","Hai! Ada yang mau kamu tanyakan tentang keuangan? Aku siap bantu.",0
+22,"Pagi! Aku di sini buat jawab pertanyaan kamu tentang keuangan. Jangan ragu buat tanya apa aja ya.","Pagi","Pagi! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+23,"Makasih! Kalau ada pertanyaan tentang keuangan, tanya aja ya. Aku siap bantu.","Makasih","Sama-sama! Kalau ada pertanyaan tentang finansial, jangan ragu buat tanya ya.",0
+24,"Halo! Kalau kamu butuh info tentang investasi atau pengelolaan uang, aku di sini buat bantu.","Halo","Halo! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+25,"Sore! Ada yang ingin kamu tahu tentang keuangan atau butuh saran tentang investasi? Aku siap bantu.","Sore","Sore! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+26,"Selamat malam! Kalau ada pertanyaan tentang keuangan atau investasi, tanya aja ya. Aku siap bantu.","Selamat malam","Malam! Ada yang mau kamu tanyakan tentang finansial? Aku siap bantu.",0
+27,"Hai! Aku siap jawab pertanyaan kamu tentang finansial. Jangan sungkan buat tanya ya.","Hai","Hai! Ada yang bisa aku bantu tentang keuangan? Silakan tanya ya.",0
+28,"Halo! Kalau kamu butuh bantuan atau info tentang keuangan, aku siap bantu. Silakan tanya aja.","Halo","Halo! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+29,"Thanks! Kalau kamu punya pertanyaan tentang investasi atau pengelolaan uang, tanya aja ya. Aku siap bantu.","Thanks","Sama-sama! Kalau ada pertanyaan tentang keuangan, jangan ragu buat tanya ya.",0
+30,"Pagi! Ada yang mau kamu tahu tentang finansial atau butuh saran keuangan? Aku siap bantu.","Pagi","Pagi! Ada yang bisa aku bantu tentang keuangan? Silakan tanya ya.",0
+31,"Hai! Aku di sini buat bantu kamu dengan pertanyaan seputar finansial. Silakan tanya apa saja yang ingin kamu ketahui tentang keuangan, investasi, atau pengelolaan uang.","Ok","Hai! Apa kabar? Silakan tanya apa saja yang kamu ingin tahu tentang finansial.",0
+32,"Selamat pagi! Kalau kamu punya pertanyaan tentang keuangan atau butuh saran tentang pengelolaan uang, aku siap membantu. Jangan ragu buat tanya!","Oke","Pagi! Apa kabar? Silakan tanya apa saja yang ingin kamu ketahui tentang finansial.",0
+33,"Makasih sudah menghubungi kami! Kalau kamu punya pertanyaan seputar finansial, jangan sungkan buat tanya. Aku di sini buat bantu kamu.","Okay","Sama-sama! Kalau ada yang mau ditanya tentang keuangan, jangan ragu buat tanya ya.",0
+34,"Hai! Aku siap bantu kamu dengan berbagai informasi tentang keuangan dan investasi. Silakan tanya kapan aja.","Ok","Hai! Apa kabar? Silakan tanya apa aja yang kamu ingin tahu tentang finansial.",0
+35,"Selamat siang! Ada hal yang mau kamu tanyakan tentang keuangan? Aku siap bantu dengan segala informasi yang kamu butuhkan.","Oke","Siang! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+36,"Selamat sore! Kalau kamu punya pertanyaan tentang investasi atau pengelolaan uang, aku di sini buat bantu kamu.","Okay","Sore! Ada yang ingin kamu tanyakan tentang finansial? Aku siap bantu.",0
+37,"Halo! Jangan ragu buat tanya tentang segala hal tentang keuangan, aku di sini buat bantu kamu.","Ok","Halo! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+38,"Selamat malam! Ada pertanyaan tentang keuangan yang ingin kamu ajukan? Aku siap bantu dengan informasi yang kamu butuhkan.","Oke","Malam! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+39,"Hai! Aku di sini buat bantu kamu dengan pertanyaan tentang keuangan dan investasi. Silakan tanya kapan aja.","Okay","Hai! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+40,"Halo! Ada pertanyaan seputar keuangan atau butuh saran tentang investasi? Aku siap bantu.","Ok","Halo! Apa kabar? Silakan tanya apa aja yang kamu ingin tahu tentang finansial.",0
+41,"Hai! Kalau ada pertanyaan tentang finansial atau butuh info tentang investasi, tanya aja ya.","Oke","Hai! Ada yang mau kamu tanyakan tentang keuangan? Aku siap bantu.",0
+42,"Pagi! Aku di sini buat jawab pertanyaan kamu tentang keuangan. Jangan ragu buat tanya apa aja ya.","Okay","Pagi! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+43,"Makasih! Kalau ada pertanyaan tentang keuangan, tanya aja ya. Aku siap bantu.","Ok","Sama-sama! Kalau ada pertanyaan tentang finansial, jangan ragu buat tanya ya.",0
+44,"Halo! Kalau kamu butuh info tentang investasi atau pengelolaan uang, aku di sini buat bantu.","Oke","Halo! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+45,"Sore! Ada yang ingin kamu tahu tentang keuangan atau butuh saran tentang investasi? Aku siap bantu.","Okay","Sore! Ada yang bisa aku bantu tentang finansial? Silakan tanya ya.",0
+46,"Selamat malam! Kalau ada pertanyaan tentang keuangan atau investasi, tanya aja ya. Aku siap bantu.","Ok","Malam! Ada yang mau kamu tanyakan tentang finansial? Aku siap bantu.",0
+47,"Hai! Aku siap jawab pertanyaan kamu tentang finansial. Jangan sungkan buat tanya ya.","Oke","Hai! Ada yang bisa aku bantu tentang keuangan? Silakan tanya ya.",0
+48,"Halo! Kalau kamu butuh bantuan atau info tentang keuangan, aku siap bantu. Silakan tanya aja.","Okay","Halo! Apa kabar? Silakan tanya apa aja tentang finansial, aku siap bantu.",0
+

@@ -12,20 +12,26 @@ This document provides step-by-step instructions for deploying the Generative AI
 
 ### 1. Build the Docker Image
 
-Navigate to the `finboost-assistant` directory:
+Navigate to the `generative-ai-v2` directory:
 
 ```sh
-cd finboost-ml/finboost-assistant
+cd finboost-ml/generative-ai-v2
 ```
 
 Build the Docker image:
 
 <!-- ```sh
-docker build -t gcr.io/[PROJECT-ID]/finboost-assistant .
+docker build -t gcr.io/[PROJECT-ID]/generative-ai-v2 .
 ``` -->
 
 ```sh
-docker build -t finboost-assistant .
+docker build -t generative-ai-v2 .
+```
+
+Run the Docker container locally to test (optional)
+
+```sh
+docker run -p 8080:8080 generative-ai-v2
 ```
 
 ### 2. Push the Docker Image to Google Container Registry
@@ -46,17 +52,17 @@ gcloud artifacts repositories create REPOSITORY-ID --repository-format=docker --
 Tag the image with a registry name
 
 ```sh
-docker tag finboost-assistant:latest asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finboost-assistant:latest
+docker tag generative-ai-v2:latest asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai-v2:latest
 ```
 
 Push the Docker image:
 
 <!-- ```sh
-docker push gcr.io/[PROJECT-ID]/finboost-assistant
+docker push gcr.io/[PROJECT-ID]/generative-ai-v2
 ``` -->
 
 ```sh
-docker push asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finboost-assistant:latest
+docker push asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai-v2:latest
 ```
 
 ### 3. Deploy to Google Cloud Run
@@ -70,12 +76,12 @@ gcloud config set project ents-h115
 Deploy the container image to Cloud Run:
 
 <!-- ```sh
-gcloud run deploy finboost-ml --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finboost-assistant:latest --platform managed --region asia-southeast2 --allow-unauthenticated
+gcloud run deploy finboost-ml --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai-v2:latest --platform managed --region asia-southeast2 --allow-unauthenticated
 
 ``` -->
 
 ```sh
-gcloud run deploy finboost-assistant --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finboost-assistant:latest --platform managed --region asia-southeast2 --allow-unauthenticated
+gcloud run deploy generative-ai-v2 --image asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai-v2:latest --platform managed --region asia-southeast2 --allow-unauthenticated
 
 ```
 
