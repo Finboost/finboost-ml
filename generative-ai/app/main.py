@@ -1,138 +1,88 @@
-from flask import Flask, request, jsonify
-import pandas as pd
+# python -m app.app
+from flask import Flask, request, jsonify, render_template
+from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 import tensorflow as tf
-from transformers import BertTokenizerFast, TFBertForQuestionAnswering
+# from .financial_keywords import FINANCIAL_KEYWORDS as keywords
+# from .banned_keywords import BANNED_WORDS as banneds
+from . import financial_keywords as keywords
+from . import banned_keywords as banneds
+import pandas as pd
+
+
+FINANCIAL_KEYWORDS = keywords.FINANCIAL_KEYWORDS
+BANNED_WORDS = banneds.BANNED_WORDS
+
 
 app = Flask(__name__)
 
-# Load the tokenizer and model
-model_name = "Rifky/Indobert-QA"
-tokenizer = BertTokenizerFast.from_pretrained(model_name)
-model = TFBertForQuestionAnswering.from_pretrained(model_name)
-model.load_weights('./models/gen-ai/model_weights_gen_ai.h5')
+# Load model and tokenizer
+model_name = "./models/gen-ai/"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = TFGPT2LMHeadModel.from_pretrained(model_name)
 
-# Load the dataset
-df = pd.read_csv('./data/generative-ai/final_dataset.csv')
+df = pd.read_csv('./data/finansial-dataset-v2.csv')
+prompt_response_dict = dict(zip(df['prompt'], df['response']))
 
-def provide_recommendation():
-    return "Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk memberikan panduan dan rekomendasi seputar isu keuangan"
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-def answer_question(question, context):
-    if context is None:
-        return provide_recommendation()
-
-    inputs = tokenizer(question, context, return_tensors="tf", max_length=384, truncation=True, padding=True)
-    outputs = model(inputs)
-
-    answer_start = tf.argmax(outputs.start_logits, axis=1).numpy()[0]
-    answer_end = tf.argmax(outputs.end_logits, axis=1).numpy()[0]
-
-    if answer_end < answer_start:
-        answer_end = answer_start
-
-    max_answer_length = 100
-    answer_tokens = inputs["input_ids"][0][answer_start:answer_end + max_answer_length]
-    answer = tokenizer.decode(answer_tokens, skip_special_tokens=True).split("[SEP]")[0]
-
-    return answer
-
-def find_context_for_question(question, dataframe):
-    max_matched_words = 0
-    best_matched_context = None
-    context_found = False
-
-    for _, row in dataframe.iterrows():
-        if question.strip().lower() in row['question'].strip().lower():
-            best_matched_context = row['context']
-            context_found = True
-            break
-
-    if not context_found:
-        for _, row in dataframe.iterrows():
-            dataset_tokens = set(row['question'].strip().lower().split())
-            matched_words = len(set(question.strip().lower().split()).intersection(dataset_tokens))
-            if matched_words > max_matched_words:
-                max_matched_words = matched_words
-                best_matched_context = row['context']
-
-    return best_matched_context, context_found
-
-def provide_recommendation_for_question(question):
-    common_words = {
-        "apa", "kenapa", "mengapa", "apa itu", "bagaimana", "siapa",
-        "di mana", "kapan", "yang", "adalah", "untuk", "dengan",
-        "ke", "dari", "atau", "dan", "jika", "jika", "maka",
-        "seperti", "oleh", "agar", "sehingga", "karena", "namun",
-        "jadi", "tidak", "adalah", "bahwa", "itu", "dalam", 
-        "oleh", "pada", "untuk", "dengan", "tanpa", "saat", "dimana",
-        "akan", "sudah", "belum", "pernah", "apakah", "apabila",
-        "bagaimanakah", "sebagaimana", "adakah", "bilamana", "mengapakah",
-        "kapankah", "dimanakah", "siapakah", "apa sajakah", "berapa", "indonesia"
-    }
-
-    def filter_common_words(tokens):
-        return [word for word in tokens if word not in common_words]
-
-    max_matched_words = 0
-    best_matched_context = None
-
-    question_tokens = set(filter_common_words(question.strip().lower().split()))
-
-    for _, row in df.iterrows():
-        dataset_tokens = set(filter_common_words(row['question'].strip().lower().split()))
-        matched_words = len(question_tokens.intersection(dataset_tokens))
-        if matched_words > max_matched_words:
-            max_matched_words = matched_words
-            best_matched_context = row['context']
-
-    if best_matched_context:
-        return best_matched_context
-    else:
-        return provide_recommendation()
-
-def is_complex_prompt(prompt):
-    # Define criteria for complex prompts
-    threshold_length = 10
-    return len(prompt.split()) > threshold_length
-
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/generate', methods=['POST'])
+def generate():
     data = request.get_json()
-    question = data.get('question', '')
-    
-    is_expert = is_complex_prompt(question)
-    
-    if is_expert:
-        return jsonify({
-            'answer': (
-                "Terima kasih atas pertanyaannya. Pertanyaan Anda terlalu kompleks untuk dijawab secara langsung. "
-                "Namun, berikut beberapa rekomendasi yang mungkin dapat membantu mengelola keuangan Anda:\n\n"
-                
-                "1. **Buat anggaran:** Pantau pengeluaran Anda untuk mengidentifikasi area penghematan dan alokasi dana yang lebih efisien.\n\n"
-                
-                "2. **Cari pendapatan tambahan:** Pertimbangkan pekerjaan sampingan atau proyek paruh waktu untuk meningkatkan pendapatan Anda.\n\n"
-                
-                "3. **Investasi bijak:** Pelajari opsi investasi seperti saham, obligasi, atau properti. Konsultasikan dengan profesional keuangan jika perlu.\n\n"
-                
-                "4. **Kembangkan keterampilan:** Investasikan dalam pengembangan keterampilan dan pertimbangkan memonetisasi hobi atau minat Anda.\n\n"
-                
-                "5. **Perencanaan jangka panjang:** Buat rencana pensiun dan pastikan Anda memiliki perlindungan asuransi untuk risiko finansial.\n\n"
-                
-                "Semoga rekomendasi ini bermanfaat. Jika Anda membutuhkan bantuan lebih lanjut, jangan ragu untuk bertanya atau menggunakan fitur konsultasi dengan pakar keuangan kami. silahkan cek list expert di aplikasi kami."
-            ),
-            'isExpert': True
-        })
+    prompt = data.get('prompt', '').lower()
 
-    best_context, context_found = find_context_for_question(question, df)
-    if not context_found:
-        answer = provide_recommendation_for_question(question)
+    # Handle specific user inputs
+    if prompt in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu']:
+        response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
+        is_expert = False
     else:
-        answer = answer_question(question, best_context)
+        response, is_expert = generate_response(prompt)
     
-    return jsonify({
-        'answer': answer,
-        'isExpert': False
-    })
+    return jsonify({"response": response, "isExpert": is_expert})
+
+def generate_response(prompt):
+    # Check for banned words
+    if any(banned_word in prompt.lower() for banned_word in BANNED_WORDS):
+        return "Mohon maaf, Bahasa yang digunakan tidak pantas dan tidak diperbolehkan. Jika Anda memerlukan bantuan terkait masalah finansial, dengan senang hati saya siap membantu.", False
+
+    if prompt in prompt_response_dict:
+        return prompt_response_dict[prompt]
+
+    is_finance_related = any(keyword in prompt.lower() for keyword in FINANCIAL_KEYWORDS)
+
+    if not is_finance_related:
+        return "Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk memberikan panduan dan rekomendasi seputar masalah finansial. Silakan ajukan pertanyaan terkait finansial anda", False
+
+    # Ensure the prompt ends with appropriate punctuation
+    if not prompt.endswith(('.', '?', '!', ':')):
+        prompt += '.'
+
+    inputs = tokenizer(prompt, return_tensors="tf", padding=True, truncation=True)
+    prompt_output = model.generate(
+        input_ids=inputs["input_ids"],
+        attention_mask=inputs["attention_mask"],
+        max_length=100,
+        num_return_sequences=1,
+        temperature=0.7,
+        do_sample=True,
+        pad_token_id=tokenizer.eos_token_id
+    )
+    response = tokenizer.decode(prompt_output[0], skip_special_tokens=True)
+
+    # Ensure the response does not include the prompt
+    response = response.replace(prompt, '').strip()
+
+    # Ensure the response ends with a complete sentence
+    if not response.endswith('.'):
+        response = response.rsplit('.', 1)[0] + '.'
+
+    THRESHOLD_LENGTH = 10
+    is_expert = len(prompt.split()) > THRESHOLD_LENGTH
+    if is_expert:
+        response += "\n\nJika Anda memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, Anda dapat menggunakan fitur konsultasi dengan pakar finansial kami, silahkan cek list expert di menu kami."
+
+    return response, is_expert
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
