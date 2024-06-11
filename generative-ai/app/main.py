@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import tensorflow as tf
 from transformers import BertTokenizerFast, TFBertForQuestionAnswering
-import requests
 
 app = Flask(__name__)
 
@@ -64,11 +63,11 @@ def provide_recommendation_for_question(question):
         "di mana", "kapan", "yang", "adalah", "untuk", "dengan",
         "ke", "dari", "atau", "dan", "jika", "jika", "maka",
         "seperti", "oleh", "agar", "sehingga", "karena", "namun",
-        "jadi", "tidak", "adalah", "bahwa", "itu", "dalam",
-        "oleh", "pada", "untuk", "dengan", "tanpa", "saat",
+        "jadi", "tidak", "adalah", "bahwa", "itu", "dalam", 
+        "oleh", "pada", "untuk", "dengan", "tanpa", "saat", "dimana",
         "akan", "sudah", "belum", "pernah", "apakah", "apabila",
         "bagaimanakah", "sebagaimana", "adakah", "bilamana", "mengapakah",
-        "kapankah", "dimanakah", "siapakah", "apa sajakah", "berapa"
+        "kapankah", "dimanakah", "siapakah", "apa sajakah", "berapa", "indonesia"
     }
 
     def filter_common_words(tokens):
@@ -101,39 +100,27 @@ def predict():
     data = request.get_json()
     question = data.get('question', '')
     
-    if is_complex_prompt(question):
+    is_expert = is_complex_prompt(question)
+    
+    if is_expert:
         return jsonify({
-            'answer': ("Terima kasih atas pertanyaannya. Namun pertanyaan anda terlalu kompleks. Meskipun saya tidak memberikan jawaban "
-                    "yang langsung terkait dengan pertanyaan Anda, saya berharap rekomendasi berikut dapat membantu Anda "
-                    "mengelola keuangan Anda dengan lebih baik:\n\n"
-                    
-                    "1. Pertama-tama, langkah yang paling penting adalah membangun anggaran yang terperinci dan "
-                    "memantau pengeluaran Anda secara cermat. Dengan demikian, Anda dapat mengidentifikasi area di mana Anda "
-                    "dapat menghemat dan mengalokasikan dana dengan lebih efisien.\n\n"
-                    
-                    "2. Selain mengelola pengeluaran, pertimbangkan untuk mencari peluang pendapatan tambahan melalui "
-                    "pekerjaan sampingan atau proyek-proyek paruh waktu. Hal ini dapat membantu meningkatkan pendapatan Anda "
-                    "dan memperluas sumber pendapatan.\n\n"
-                    
-                    "3. Selanjutnya, luangkan waktu untuk mempelajari opsi investasi yang tersedia dan alokasikan dana Anda "
-                    "dengan bijak. Mungkin Anda ingin mempertimbangkan investasi dalam instrumen keuangan seperti saham, "
-                    "obligasi, atau properti. Namun, pastikan untuk melakukan riset yang teliti dan berkonsultasi dengan "
-                    "profesional keuangan jika diperlukan.\n\n"
-                    
-                    "4. Selain itu, penting untuk terus mengembangkan keterampilan yang bernilai tinggi dalam karier Anda. "
-                    "Pertimbangkan untuk memonetisasi hobi atau minat Anda sebagai sumber pendapatan tambahan. Hal ini dapat "
-                    "membantu meningkatkan potensi penghasilan Anda di masa mendatang.\n\n"
-                    
-                    "5. Terakhir, namun tidak kalah pentingnya, pastikan Anda memiliki perencanaan keuangan jangka panjang "
-                    "yang tepat. Ini termasuk perencanaan pensiun yang baik serta perlindungan asuransi untuk melindungi Anda "
-                    "dari risiko finansial yang tidak terduga.\n\n"
-                    
-                    "Semoga rekomendasi ini memberikan arahan yang berguna bagi Anda dalam memulai atau meningkatkan "
-                    "perjalanan keuangan Anda. Jika Anda memiliki pertanyaan lebih lanjut atau membutuhkan bantuan tambahan, "
-                    "jangan ragu untuk bertanya. Saya siap membantu Anda dalam segala hal terkait keuangan Anda.\n\n"
-                    
-                    "Jika Anda memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, Anda dapat menggunakan fitur "
-                    "konsultasi dengan pakar keuangan kami, silahkan cek list expert di menu kami")
+            'answer': (
+                "Terima kasih atas pertanyaannya. Pertanyaan Anda terlalu kompleks untuk dijawab secara langsung. "
+                "Namun, berikut beberapa rekomendasi yang mungkin dapat membantu mengelola keuangan Anda:\n\n"
+                
+                "1. **Buat anggaran:** Pantau pengeluaran Anda untuk mengidentifikasi area penghematan dan alokasi dana yang lebih efisien.\n\n"
+                
+                "2. **Cari pendapatan tambahan:** Pertimbangkan pekerjaan sampingan atau proyek paruh waktu untuk meningkatkan pendapatan Anda.\n\n"
+                
+                "3. **Investasi bijak:** Pelajari opsi investasi seperti saham, obligasi, atau properti. Konsultasikan dengan profesional keuangan jika perlu.\n\n"
+                
+                "4. **Kembangkan keterampilan:** Investasikan dalam pengembangan keterampilan dan pertimbangkan memonetisasi hobi atau minat Anda.\n\n"
+                
+                "5. **Perencanaan jangka panjang:** Buat rencana pensiun dan pastikan Anda memiliki perlindungan asuransi untuk risiko finansial.\n\n"
+                
+                "Semoga rekomendasi ini bermanfaat. Jika Anda membutuhkan bantuan lebih lanjut, jangan ragu untuk bertanya atau menggunakan fitur konsultasi dengan pakar keuangan kami. silahkan cek list expert di aplikasi kami."
+            ),
+            'isExpert': True
         })
 
     best_context, context_found = find_context_for_question(question, df)
@@ -142,7 +129,10 @@ def predict():
     else:
         answer = answer_question(question, best_context)
     
-    return jsonify({'answer': answer})
+    return jsonify({
+        'answer': answer,
+        'isExpert': False
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
