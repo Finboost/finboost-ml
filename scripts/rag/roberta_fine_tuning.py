@@ -8,7 +8,7 @@ from transformers import RobertaTokenizerFast, RobertaForQuestionAnswering, Trai
 
 # Load the dataset
 # df = pd.read_csv('../data/dataset.csv')
-df = pd.read_csv('./data/dataset.csv')
+df = pd.read_csv('./data/generative-ai/final-dataset.csv')
 dataset = Dataset.from_pandas(df)
 
 # Load the tokenizer and model

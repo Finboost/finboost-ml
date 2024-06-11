@@ -13,7 +13,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 tf.get_logger().setLevel('ERROR')
 
 # Load dataset
-df = pd.read_csv('./data/final_dataset.csv')
+df = pd.read_csv('./data/finansial-dataset.csv')
 dataset = Dataset.from_pandas(df)
 
 # Load tokenizer and model
