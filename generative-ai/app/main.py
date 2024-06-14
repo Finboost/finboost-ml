@@ -1,17 +1,13 @@
-# python -m app.app
+# main.py
 from flask import Flask, request, jsonify, render_template
 from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 import tensorflow as tf
-# from .financial_keywords import FINANCIAL_KEYWORDS as keywords
-# from .banned_keywords import BANNED_WORDS as banneds
-from . import financial_keywords as keywords
-from . import banned_keywords as banneds
 import pandas as pd
+import string
 
-
-FINANCIAL_KEYWORDS = keywords.FINANCIAL_KEYWORDS
-BANNED_WORDS = banneds.BANNED_WORDS
-
+# Load the keywords and banned words from the corresponding modules
+from .financial_keywords import FINANCIAL_KEYWORDS
+from .banned_keywords import BANNED_WORDS
 
 app = Flask(__name__)
 
@@ -20,8 +16,13 @@ model_name = "./models/gen-ai/"
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 model = TFGPT2LMHeadModel.from_pretrained(model_name)
 
+# Function to normalize prompts by removing punctuation and converting to lowercase
+def normalize_prompt(prompt):
+    return ''.join(char for char in prompt if char not in string.punctuation).lower()
+
+# Load the dataset and create a normalized prompt-response dictionary
 df = pd.read_csv('./data/finansial-dataset-v2.csv')
-prompt_response_dict = dict(zip(df['prompt'], df['response']))
+prompt_response_dict = {normalize_prompt(prompt): response for prompt, response in zip(df['prompt'], df['response'])}
 
 @app.route('/')
 def index():
@@ -30,10 +31,10 @@ def index():
 @app.route('/generate', methods=['POST'])
 def generate():
     data = request.get_json()
-    prompt = data.get('prompt', '').lower()
+    prompt = data.get('prompt', '')
 
     # Handle specific user inputs
-    if prompt in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu']:
+    if normalize_prompt(prompt) in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu']:
         response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
         is_expert = False
     else:
@@ -42,14 +43,18 @@ def generate():
     return jsonify({"response": response, "isExpert": is_expert})
 
 def generate_response(prompt):
+    normalized_prompt = normalize_prompt(prompt)
+
     # Check for banned words
-    if any(banned_word in prompt.lower() for banned_word in BANNED_WORDS):
+    if any(banned_word in normalized_prompt for banned_word in BANNED_WORDS):
         return "Mohon maaf, Bahasa yang digunakan tidak pantas dan tidak diperbolehkan. Jika Anda memerlukan bantuan terkait masalah finansial, dengan senang hati saya siap membantu.", False
 
-    if prompt in prompt_response_dict:
-        return prompt_response_dict[prompt]
+    # Check if the normalized prompt exists in the dataset
+    if normalized_prompt in prompt_response_dict:
+        return prompt_response_dict[normalized_prompt], False
 
-    is_finance_related = any(keyword in prompt.lower() for keyword in FINANCIAL_KEYWORDS)
+    # Check if the prompt contains financial keywords
+    is_finance_related = any(keyword in normalized_prompt for keyword in FINANCIAL_KEYWORDS)
 
     if not is_finance_related:
         return "Terima kasih atas pertanyaannya. Saya ingin menjelaskan bahwa peran saya di sini adalah untuk memberikan panduan dan rekomendasi seputar masalah finansial. Silakan ajukan pertanyaan terkait finansial anda", False
@@ -58,6 +63,7 @@ def generate_response(prompt):
     if not prompt.endswith(('.', '?', '!', ':')):
         prompt += '.'
 
+    # Generate response using the model
     inputs = tokenizer(prompt, return_tensors="tf", padding=True, truncation=True)
     prompt_output = model.generate(
         input_ids=inputs["input_ids"],

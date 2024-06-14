@@ -40,6 +40,12 @@ docker build -t gcr.io/[PROJECT-ID]/question-suggestion .
 docker build -t question-suggestion .
 ```
 
+Run the Docker container locally to test (optional)
+
+```sh
+docker run -p 8080:8080 question-suggestion
+```
+
 ### 2. Push the Docker Image to Google Container Registry
 
 Authenticate with Google Cloud:

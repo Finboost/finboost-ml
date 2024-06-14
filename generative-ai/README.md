@@ -28,6 +28,12 @@ docker build -t gcr.io/[PROJECT-ID]/generative-ai .
 docker build -t generative-ai .
 ```
 
+Run the Docker container locally to test (optional)
+
+```sh
+docker run -p 8080:8080 generative-ai
+```
+
 ### 2. Push the Docker Image to Google Container Registry
 
 Authenticate with Google Cloud:

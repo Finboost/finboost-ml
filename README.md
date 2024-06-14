@@ -1,7 +1,5 @@
 <h1 align="center">Finboost Machine Learning</h1>
 
-# Finboost Machine Learning
-
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -15,38 +13,39 @@
 
 ## Introduction
 
-Finboost Machine Learning adalah proyek chatbot finansial yang dapat menjawab pertanyaan terkait topik finansial dalam bahasa Indonesia. Proyek ini menggunakan model deep learning dengan fine-tuning pada model `Rifky/Indobert-QA` dan integrasi dengan RAG (Retrieval-Augmented Generation) untuk menghasilkan jawaban yang lebih akurat dan relevan.
+Finboost Machine Learning is a financial chatbot project that can answer finance-related questions in Indonesian. The project leverages deep learning models with fine-tuning on the `cahya/gpt2-small-indonesian-522M` model for generative AI and uses an LSTM model for question suggestion.
 
 ## Tech Stack
 
-- **Python**: Bahasa pemrograman utama yang digunakan.
-- **Transformers**: Pustaka dari Hugging Face untuk memanfaatkan model transformer.
-- **Datasets**: Pustaka untuk mengelola dataset.
-- **PyTorch**: Framework deep learning yang digunakan sebagai backend.
-- **FAISS**: Library untuk pencarian vektor yang cepat, digunakan oleh RAG.
-- **Pandas**: Pustaka untuk mengelola data dalam bentuk DataFrame.
+- **Python**: Primary programming language.
+- **Transformers**: Hugging Face library for transformer models.
+- **Datasets**: Library for managing datasets.
+- **TensorFlow**: Deep learning framework used as the backend.
+- **Pandas**: Library for managing data in DataFrame format.
 
 ## Architecture
 
-Proyek ini menggunakan arsitektur berikut:
+This project uses the following architecture:
 
-- **Data Preparation**: Data pertanyaan dan jawaban disiapkan dalam format CSV.
-- **Model Fine-Tuning**: Model `Rifky/Indobert-QA` di-fine-tune menggunakan dataset.
-- **RAG (Retrieval-Augmented Generation)**: Digunakan untuk memperkaya jawaban dengan informasi tambahan.
-- **Integration**: Hasil dari model fine-tuned dan RAG digabungkan untuk memberikan jawaban akhir.
+1. **Data Preparation**: Preparing question and answer data in CSV format.
+2. **Model Fine-Tuning**: Fine-tuning the `cahya/gpt2-small-indonesian-522M` model using the dataset for generative AI.
+3. **LSTM Model**: Using an LSTM model for question suggestion.
 
 ## File and Folder Structure
 
-| File/Folder Name                        | Description                                                                                                                                             |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data/dataset.csv`                      | Dataset contoh dalam format CSV                                                                                                                         |
-| `models/fine_tuned_model`               | Direktori untuk menyimpan model yang telah di-fine-tune                                                                                                 |
-| `notebooks/finchat.ipynb`               | Notebook utama untuk fine-tuning dan penggunaan RAG                                                                                                     |
-| `scripts/fine_tuning.py`                | Script untuk melakukan fine-tuning pada model Rifky/Indobert-QA (inggris only, tapi lebih akurat)                                                       |
-| `scripts/indo_fine_tuning.py`           | Script untuk melakukan fine-tuning pada model dengan model xlm-roberta-base (support bahasa indonesia) ref : # https://huggingface.co/Rifky/Indobert-QA |
-| `scripts/rag_integration.py`            | Script untuk mengintegrasikan RAG dengan model fine-tuned                                                                                               |
-| `scripts/context/financial_keywords.py` | Daftar kata kata yang berhubungan dengan finansial                                                                                                      |
-| `requirements.txt`                      | Daftar dependencies untuk proyek ini                                                                                                                    |
+| File/Folder Name                              | Description                                                            |
+| --------------------------------------------- | ---------------------------------------------------------------------- |
+| `data/generative-ai/finansial-dataset-v2.csv` | Example dataset generative-ai in CSV format                            |
+| `data/question-suggestion/data.csv`           | Example dataset question suggestion in CSV format                      |
+| `models/fine_tuned_model`                     | Directory to store the fine-tuned generative AI model                  |
+| `notebooks/generative_ai.ipynb`               | Notebook for fine-tuning and using the generative AI model             |
+| `notebooks/question_suggestion.ipynb`         | Notebook for training and using the LSTM model for question suggestion |
+| `preprocessing/combined_dataset.ipynb`        | notebook for preprocessing the collected dataset                       |
+| `scripts/`                                    | Folder to save the script in the next feature                          |
+| `generative-ai/`                              | Folder to deploy generative-ai model                                   |
+| `generative-ai-v2/`                           | Folder to deploy generative-ai-v2 model                                |
+| `question-suggestion/`                        | Folder to deploy question-suggestion model                             |
+| `requirements.txt`                            | List of dependencies for this project                                  |
 
 ## Setup
 
@@ -62,25 +61,27 @@ Proyek ini menggunakan arsitektur berikut:
 3. **Upload the dataset to the appropriate folder:**
    - Place dataset.csv in the data/ directory.
 4. **Open the notebook:**
-   - Open chatbot_finansial.ipynb in Google Colab or Jupyter Notebook.
+   - Open generative_ai.ipynb and question_suggestion.ipynb in Google Colab or Jupyter Notebook.
 
 ## Usage
 
 Run the notebook:
 
-1. Run the notebook:
+1. Run the Generative AI notebook:
 
-- Execute all cells in the chatbot_finansial.ipynb notebook to train the model and test the integration with RAG.
-  Fine-Tuning:
+- Execute all cells in the generative_ai.ipynb notebook to fine-tune the cahya/gpt2-small-indonesian-522M model and generate responses.
 
-2. Fine-Tuning:
+2. Run the Question Suggestion notebook:
 
-- The fine-tuning script fine_tuning.py can be used independently to fine-tune the model on new data.
-  Integration with RAG:
+- Execute all cells in the question_suggestion.ipynb notebook to train the LSTM model and make question suggestions.
 
-3. Integration with RAG:
+3. Fine-Tuning:
 
-- Use the rag_integration.py script to integrate the fine-tuned model with RAG for enhanced answers.
+- Use the fine-tuning script generative_ai.py to fine-tune the cahya/gpt2-small-indonesian-522M model on new data.
+
+4. Question Suggestion:
+
+- Use the question_suggestion.py script to train and use the LSTM model for question suggestion.
 
 ## Contributing
 
@@ -92,7 +93,7 @@ Run the notebook:
 
 ## License
 
-(belum tau)
+(TBC)
 
 ---
 
