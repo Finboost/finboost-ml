@@ -2,3 +2,4 @@ flask
 transformers
 tensorflow
 pandas
+tf-keras

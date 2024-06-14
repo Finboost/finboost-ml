@@ -24,11 +24,11 @@ def get_suggestions(user_input, total_questions=4, profile_data=None):
 if __name__ == '__main__':
     user_input = "-"  # Example user input
     profile_data = {
-        "income": "0",
-        "investment_type": "Reksadana",
-        "savings": "0",
-        "debt": "0",
-        "insurance_type": "-"
+        "incomePerMonth": "0",
+        "investments": "Reksadana",
+        "totalSavings": "0",
+        "totalDebts": "0",
+        "insurances": "-"
     }
 
     suggestions = get_suggestions(user_input, profile_data=profile_data)

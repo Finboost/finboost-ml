@@ -8,7 +8,7 @@ import pickle
 app = Flask(__name__)
 
 # Load data
-df = pd.read_csv('./data/question-suggestion/data.csv')
+df = pd.read_csv('./data/data.csv')
 questions = df['Question'].tolist()
 labels = df['Category'].tolist()
 
@@ -76,11 +76,11 @@ def suggest():
     user_input = data.get('user_input', '')
     total_questions = data.get('total_questions', 4)
     profile_data = {
-        'income': data.get('income', ''),
-        'investment_type': data.get('investment_type', ''),
-        'savings': data.get('savings', ''),
-        'debt': data.get('debt', ''),
-        'insurance_type': data.get('insurance_type', '')
+        'incomePerMonth': data.get('incomePerMonth', ''),
+        'investments': data.get('investments', ''),
+        'totalSavings': data.get('totalSavings', ''),
+        'totalDebts': data.get('totalDebts', ''),
+        'insurances': data.get('insurances', '')
     }
 
     # If user_input is missing or a placeholder, use profile data for suggestions
