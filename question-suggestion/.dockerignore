@@ -3,3 +3,7 @@ __pycache__
 *.pyo
 .DS_Store
 .venv
+
+# Ignore the unnecessary
+modeler.py
+test.py
