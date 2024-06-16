@@ -74,6 +74,5 @@ FINANCIAL_KEYWORDS = [
     "uang lembur", "uang saku", "budget harian", "saldo", "hutang kartu kredit",
     "angsuran kredit", "hutang rumah", "hutang mobil", "gaji pokok", "uang makan",
     "bonus", "insentif", "kas kecil", "uang pensiun", "biaya hidup", "obligasi", "emas", "cryptocurrency", 
-    "thanks","hallo", "terimakasih", "sorry", "maaf", "hi", "tes", "test", "p", "makasih", "kamu",
     "mengatasinya", "memperbaikinya", "mengelolanya", "mengelola", "memberi", "penipuan", "penipu", "ditipu"
 ]
