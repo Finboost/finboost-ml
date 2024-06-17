@@ -9,3 +9,5 @@ __pycache__/
 .venv/
 .DS_Store
 saved_model
+
+.env
