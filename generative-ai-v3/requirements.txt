@@ -1,0 +1,5 @@
+Flask
+groq
+gunicorn
+Werkzeug
+python-dotenv

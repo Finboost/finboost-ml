@@ -97,5 +97,18 @@ def suggest():
     
     return jsonify(response)
 
+@app.route('/suggest', methods=['GET'])
+def suggest_random():
+    total_questions = int(request.args.get('total_questions', 4))
+    suggested_questions = np.random.choice(questions, total_questions, replace=False).tolist()
+
+    response = {
+        "suggested_questions": suggested_questions,
+        "top_category": None,
+        "probability": None
+    }
+
+    return jsonify(response)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
