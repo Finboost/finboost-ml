@@ -5,6 +5,7 @@ import tensorflow as tf
 import pandas as pd
 import string
 import re
+import time
 
 # Load the keywords and banned words from the corresponding modules
 from .financial_keywords import FINANCIAL_KEYWORDS
@@ -35,12 +36,16 @@ def generate():
     prompt = data.get('prompt', '')
 
     # Handle specific user inputs
-    if normalize_prompt(prompt) in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu', 'sorry', 'tes', 'test', 'terimakasih']:
+    normalized_prompt = normalize_prompt(prompt)
+    if normalized_prompt in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu', 'sorry', 'tes', 'test', 'terimakasih']:
         response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
         is_expert = False
     else:
+        start_time = time.time()
         response, is_expert = generate_response(prompt)
-    
+        end_time = time.time()
+        print(f"Response generated in {end_time - start_time:.2f} seconds")
+
     return jsonify({"response": response, "isExpert": is_expert})
 
 def generate_response(prompt):
@@ -49,10 +54,6 @@ def generate_response(prompt):
     # Check for banned words
     if any(banned_word in normalized_prompt for banned_word in BANNED_WORDS):
         return "Mohon maaf, Bahasa yang digunakan tidak pantas dan tidak diperbolehkan. Jika Anda memerlukan bantuan terkait masalah finansial, dengan senang hati saya siap membantu.", False
-
-    for banned_word in BANNED_WORDS:
-        if re.search(r'\b' + re.escape(banned_word) + r'\b', normalized_prompt):
-            return "Mohon maaf, Bahasa yang digunakan tidak pantas dan tidak diperbolehkan. Jika Anda memerlukan bantuan terkait masalah finansial, dengan senang hati saya siap membantu.", False
 
     # Check if the normalized prompt exists in the dataset
     if normalized_prompt in prompt_response_dict:
