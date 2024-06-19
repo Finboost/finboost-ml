@@ -50,20 +50,22 @@ This project uses the following architecture:
 
 ## File and Folder Structure
 
-| File/Folder Name                              | Description                                                            |
-| --------------------------------------------- | ---------------------------------------------------------------------- |
-| `data/generative-ai/finansial-dataset-v2.csv` | Example dataset generative-ai in CSV format                            |
-| `data/question-suggestion/data.csv`           | Example dataset question suggestion in CSV format                      |
-| `models/fine_tuned_model`                     | Directory to store the fine-tuned generative AI model                  |
-| `notebooks/generative_ai.ipynb`               | Notebook for fine-tuning and using the generative AI model             |
-| `notebooks/question_suggestion.ipynb`         | Notebook for training and using the LSTM model for question suggestion |
-| `preprocessing/combined_dataset.ipynb`        | notebook for preprocessing the collected dataset                       |
-| `scripts/`                                    | Folder to save the script in the next feature                          |
-| `generative-ai/`                              | Folder to deploy generative-ai model                                   |
-| `generative-ai-v2/`                           | Folder to deploy generative-ai-v2 (`Coming soon`)                      |
-| `generative-ai-v3/`                           | Folder to deploy generative-ai-v3 (`Coming soon`)                      |
-| `question-suggestion/`                        | Folder to deploy question-suggestion model                             |
-| `requirements.txt`                            | List of dependencies for this project                                  |
+| File/Folder Name                              | Description                                                                                                            |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `data/generative-ai/finansial-dataset-v2.csv` | Example dataset generative-ai in CSV format                                                                            |
+| `data/question-suggestion/data.csv`           | Example dataset question suggestion in CSV format                                                                      |
+| `notebooks/generative_ai.ipynb`               | Notebook for fine-tuning and using the generative AI model                                                             |
+| `notebooks/question_suggestion.ipynb`         | Notebook for training and using the LSTM model for question suggestion                                                 |
+| `models/gen-ai`                               | Directory to store the fine-tuned generative AI model (create it yourself by running `notebooks/generative_ai.ipynb`)  |
+| `models/question-suggestion`                  | Directory to store the question suggestion model (create it yourself by running `notebooks/question_suggestion.ipynb`) |
+| `preprocessing/combined_dataset.ipynb`        | Notebook for preprocessing the collected dataset                                                                       |
+| `scripts/`                                    | Folder to save the script for future features                                                                          |
+| `generative-ai/`                              | Folder to deploy generative-ai model                                                                                   |
+| `generative-ai-v2/`                           | Folder to deploy generative-ai-v2 (`Coming soon`)                                                                      |
+| `generative-ai-v3/`                           | Folder to deploy generative-ai-v3 (`Coming soon`)                                                                      |
+| `question-suggestion/`                        | Folder to deploy question-suggestion model                                                                             |
+| `requirements.txt`                            | List of dependencies for this project                                                                                  |
+|  |
 
 ## Flow Diagrams
 
@@ -111,18 +113,20 @@ This project uses the following architecture:
   mkdir -p question-suggestion/models
   ```
 
-6. **Download and place the models:**
-   - Place the fine-tuned generative AI model in the each `models/gen-ai/` directory.
-   - Place the question suggestion model files (`tokenizer.pickle`, `label_dict.pickle`, and `model_question_suggestion.h5`) in the each `models/question-suggestion/` directory.
-7. **Run the Flask application:**
+6.  **Run the notebooks to obtain the models**
 
-   ```bash
-   python generative-ai/app/main.py
-   python question-suggestion/app/main.py
-   ```
+    - Open `notebooks/generative_ai.ipynb` in Google Colab or Jupyter Notebook and execute all the cells to fine-tune the `cahya/gpt2-small-indonesian-522M` model and generate the model files.
+    - Open `notebooks/question_suggestion.ipynb` in Google Colab or Jupyter Notebook and execute all the cells to train the LSTM model and generate the model files.
 
-8. **Download and place the datasets:**
-   - Open `notebooks/generative_ai.ipynb` and `notebooks/question_suggestion.ipynb` in Google Colab or Jupyter Notebook and execute the cells.
+7.  **Download and place the models:**
+    - Place the fine-tuned generative AI model in the each `models/gen-ai/` directory.
+    - Place the question suggestion model files (`tokenizer.pickle`, `label_dict.pickle`, and `model_question_suggestion.h5`) in the each `models/question-suggestion/` directory.
+8.  **Run the Flask application:**
+
+    ```bash
+    python generative-ai/app/main.py
+    python question-suggestion/app/main.py
+    ```
 
 ## Usage
 
