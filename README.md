@@ -60,8 +60,8 @@ This project uses the following architecture:
 | `preprocessing/combined_dataset.ipynb`        | notebook for preprocessing the collected dataset                       |
 | `scripts/`                                    | Folder to save the script in the next feature                          |
 | `generative-ai/`                              | Folder to deploy generative-ai model                                   |
-| `generative-ai-v2/`                           | Folder to deploy generative-ai-v2 (Coming soon)model                   |
-| `generative-ai-v3/`                           | Folder to deploy generative-ai-v3 (Coming soon)model                   |
+| `generative-ai-v2/`                           | Folder to deploy generative-ai-v2 (`Coming soon`)                      |
+| `generative-ai-v3/`                           | Folder to deploy generative-ai-v3 (`Coming soon`)                      |
 | `question-suggestion/`                        | Folder to deploy question-suggestion model                             |
 | `requirements.txt`                            | List of dependencies for this project                                  |
 
