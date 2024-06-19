@@ -42,6 +42,12 @@ Authenticate with Google Cloud:
 gcloud auth configure-docker
 ```
 
+Add configuration aisa-southeast2
+
+```sh
+gcloud auth configure-docker asia-southeast2-docker.pkg.dev
+```
+
 <!-- Create repo
 
 ```sh
