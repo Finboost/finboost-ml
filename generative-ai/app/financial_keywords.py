@@ -55,7 +55,7 @@ FINANCIAL_KEYWORDS = [
     "goal", "plan", "objective", "strategy", "management", "inkubasi",
     "control", "decision", "policy", "governance", "leadership",
     "responsibility", "accountability", "transparency", "integrity", "ethics",
-    "culture", "behavior", "attitude", "psychology", "behavioral",
+    "culture", "behavior", "attitude", "psychology", "behavioral", "kaya",
     "neurofinance", "emotional", "finance", "empowerment", "resilience", "wellbeing",
     "pengelolaan dana", "pengeluaran", "pasif", "pendapatan aktif", "rasio keuangan",
     "surplus", "defisit", "rekening koran", "ekonomi mikro", "ekonomi makro", "penghasilan",

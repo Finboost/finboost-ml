@@ -25,6 +25,12 @@ def normalize_prompt(prompt):
 df = pd.read_csv('./data/finansial-dataset-v2.csv')
 prompt_response_dict = {normalize_prompt(prompt): response for prompt, response in zip(df['prompt'], df['response'])}
 
+# Predefined list of words to check for immediate response
+IMMEDIATE_RESPONSE_WORDS = [
+    'hello', 'terima kasih', 'makasih', 'thanks', 'mksh', 'hallo', 'siapa kamu', 'terimakasih'
+]
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -33,9 +39,14 @@ def index():
 def generate():
     data = request.get_json()
     prompt = data.get('prompt', '')
+    normalized_prompt = normalize_prompt(prompt)
 
     # Handle specific user inputs
-    if normalize_prompt(prompt) in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu', 'sorry', 'tes', 'test', 'terimakasih']:
+    if normalized_prompt in ['hello', 'terima kasih', 'makasih', 'hi', 'p', 'oke', 'ok', 'okay', 'thanks', 'hai', 'mksh', 'hallo', 'pe', 'siapa kamu', 'sorry', 'tes', 'test', 'terimakasih']:
+        response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
+        is_expert = False
+        
+    elif any(word in normalized_prompt.split() for word in IMMEDIATE_RESPONSE_WORDS):
         response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
         is_expert = False
     else:
