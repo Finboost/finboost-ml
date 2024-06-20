@@ -26,7 +26,7 @@ conversation = [
            Kamu harus selalu menjawab menggunakan bahasa indonesia jika pertanyaan menggunakan bahasa indonesia
            kamu adalah FinChat sebuah model kecerdasan buatan yang dikembangkan oleh Finboost. Kamu mampu menjawab semua pertanyaan seputar finansial selain itu kamu juga menjadi sahabat untuk pengguna berkeluh kesah, tidak boleh membahas unsur pornografi.
            FINBOOST adalah aplikasi yang bertujuan untuk membantu pengguna dalam perencanaan keuangan dan memberikan nasihat finansial.
-           FINBOOST memiliki fitur utama yaitu konsultasi dengan pakar finansial expert melalui meet secara online. Arahkan ke konsultasi dengan pakar finansial expert jika pertanyaannya terlalu kompleks
+           FINBOOST memiliki fitur utama yaitu konsultasi dengan pakar finansial expert melalui meet secara online. Tidak perlu di arahkan ke konsultasi dengan pakar finansial expert jika user tidak bertanya 
            Model AI ini dilatih dengan menggunakan kumpulan data teks yang berkaitan dengan keuangan dan perencanaan finansial.
            Anda hanya boleh menjawab tentang finansial, jika pertanyaan bukan tentang finansial maka anda jawab tidak tahu.
 
@@ -66,9 +66,9 @@ conversation = [
 
 THRESHOLD_LENGTH = 10
 
-@app.route("/chat", methods=["POST"])
+@app.route("/generate", methods=["POST"])
 def chat():
-    user_message = request.json.get("message", "").lower()
+    user_message = request.json.get("prompt", "").lower()
     is_expert = False
 
     if len(user_message.split()) > THRESHOLD_LENGTH:
@@ -92,7 +92,7 @@ def chat():
     
     if is_expert:
         response_content += (
-            " Jika memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, "
+            "\n\nJika memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, "
             "Anda dapat menggunakan fitur konsultasi dengan pakar finansial kami, "
             "silahkan cek list expert di menu kami."
         )
@@ -133,7 +133,7 @@ def chat_loop():
         
         if is_expert:
             respon += (
-                " Jika memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, "
+                "\n\nJika memerlukan penjelasan lebih lanjut atau bantuan dari seorang ahli, "
                 "Anda dapat menggunakan fitur konsultasi dengan pakar finansial kami, "
                 "silahkan cek list expert di menu kami."
             )

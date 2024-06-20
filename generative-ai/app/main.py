@@ -46,7 +46,7 @@ def generate():
         response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
         is_expert = False
         
-    elif any(word in normalized_prompt.split() for word in IMMEDIATE_RESPONSE_WORDS):
+    elif any(word in normalized_prompt.split() for word in IMMEDIATE_RESPONSE_WORDS) and not any(keyword in normalized_prompt for keyword in FINANCIAL_KEYWORDS):
         response = "Terima kasih telah menghubungi saya sebagai assisten finansial anda. Ada yang bisa saya bantu?"
         is_expert = False
     else:
