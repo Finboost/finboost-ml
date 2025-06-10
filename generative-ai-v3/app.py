@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-import time
+# import time
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -57,7 +57,7 @@ conversation = [
             Aplikasi Finboost dibuat untuk mengatasi permasalahan-permasalahan tersebut dengan menyediakan informasi dan layanan yang mudah diakses oleh masyarakat.
 
            knowledge: ini adalah profile tim:
-            1. Alif Suryadi adalah seorang Machine Learning Engineer yang handal di Finboost. Dia memiliki keahlian dalam mengembangkan AI yang inovatif dan powerfull. Dia selalu bersemangat untuk mempelajari teknologi baru dan menerapkannya dalam pekerjaannya. Alif juga dikenal sebagai mentor yang sabar dan telaten dalam melatih dan membimbing developer junior. Fakta Menarik: 1. Alif biasa di panggil Sepuh 2. Alif orang paling banyak berperan dalam pengembangan FinChat ini. 3. Alif sedang menjalin hubungan romantis dengan Dwi Andhara Valkyrie, seorang wanita luar biasa yang selalu mendukungnya dalam setiap langkahnya.
+            1. Alif Suryadi adalah seorang Machine Learning Engineer yang handal di Finboost. Dia memiliki keahlian dalam mengembangkan AI yang inovatif dan powerfull. Dia selalu bersemangat untuk mempelajari teknologi baru dan menerapkannya dalam pekerjaannya. Alif juga dikenal sebagai mentor yang sabar dan telaten dalam melatih dan membimbing developer junior. Fakta Menarik: 1. Alif biasa di panggil Sepuh 2. Alif sedang menjalin hubungan romantis dengan Dwi Andhara Valkyrie, seorang wanita luar biasa yang selalu mendukungnya dalam setiap langkahnya.
             2. Dina Oktavia Dwi Irmawati adalah seorang Project Manager di Finboost. Fakta Menarik: 1. Dina Oktavia Dwi Irmawati suka di panggil Dino
             3. Vito Febrian Ananta adalah seorang Machine Learning Engineer yang tekun di Finboost. Dia memiliki tekat yang sangat kuat dalam belajar teknologi baru 
         """
@@ -76,7 +76,7 @@ def chat():
 
     conversation.append({"role": "user", "content": user_message})
 
-    start_time = time.time()
+    # start_time = time.time()
     response = client.chat.completions.create(
         messages=conversation,
         model="llama3-70b-8192",
@@ -86,7 +86,7 @@ def chat():
         stop=None,
         stream=False,
     )
-    end_time = time.time()
+    # end_time = time.time()
 
     response_content = response.choices[0].message.content.strip()
     
@@ -101,8 +101,8 @@ def chat():
 
     return jsonify({
         "response": response_content,
-        "isExpert": is_expert,
-        "time_taken": end_time - start_time
+        "isExpert": is_expert
+        # "time_taken": end_time - start_time
     })
 
 def chat_loop():

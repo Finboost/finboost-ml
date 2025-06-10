@@ -1,4 +1,4 @@
-# main.py
+# python -m app.main
 from flask import Flask, request, jsonify, render_template
 from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 import tensorflow as tf

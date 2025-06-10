@@ -4,24 +4,21 @@ steps:
       [
         "build",
         "-t",
-        "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai",
+        "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finchat",
         ".",
       ]
   - name: "gcr.io/cloud-builders/docker"
     args:
-      [
-        "push",
-        "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai",
-      ]
+      ["push", "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finchat"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
       [
         "run",
         "deploy",
-        "generative-ai",
+        "finchat",
         "--image",
-        "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai",
+        "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finchat",
         "--platform",
         "managed",
         "--region",
@@ -31,4 +28,4 @@ steps:
         "GROQ_API_KEY=${_GROQ_API_KEY}",
       ]
 images:
-  - "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/generative-ai"
+  - "asia-southeast2-docker.pkg.dev/ents-h115/finboost-ml/finchat"

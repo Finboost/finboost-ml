@@ -65,7 +65,7 @@ This project uses the following architecture:
 | `generative-ai-v3/`                           | Folder to deploy generative-ai-v3 (`Coming soon`)                                                                      |
 | `question-suggestion/`                        | Folder to deploy question-suggestion model                                                                             |
 | `requirements.txt`                            | List of dependencies for this project                                                                                  |
-|  |
+|                                               |
 
 ## Flow Diagrams
 
@@ -82,7 +82,7 @@ This project uses the following architecture:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/username/finboost-ml.git
+   git clone https://github.com/Finboost/finboost-ml.git
    cd finboost-ml
    ```
 
